@@ -26,11 +26,11 @@ emb_w <- function(a, b){
   #a y b intervalos
   #width funcion, en este caso ancho del intervalo
   if(width(a) == 0) {
-    if (a_sub_b(a, b)) {
-      return(0)
+    if (intersection(a, b)) {
+      return(1)
     }
     else {
-      return(1)
+      return(0)
     }
   }
   else {
@@ -57,7 +57,7 @@ emb_w <- function(a, b){
 #' @examples
 intersection <- function(a, b, interval = FALSE) {
   if(!interval)
-    return(max(a[1],b[1]) < min(a[2],b[2]))
+    return(max(a[1],b[1]) <= min(a[2],b[2]))
   else {
     left <- max(a[1],b[1])
     right <- min(a[2],b[2])
@@ -122,10 +122,10 @@ a_sub_b <- function(a, b) {
 #' @return Embedding value
 #' @export
 emb_lk <- function(a, b) {
-  if(intersection(a,b))
+  if(!intersection(a,b))
     return(0)
   else
-    return(min(1-b[1]+a[1], 1-b[2]+a[2], 1))
+    return(min(1-b[1]+a[1], 1+b[2]-a[2], 1))
 
 }
 
@@ -151,7 +151,7 @@ emb_fd <- function(a,b){
   if(a[1] <= b[1] && b[1] <= a[2] && a[2] <= b[2]) {
     return(max(1-b[1], a[1]))
   }
-  if(a_sub_b(a, b)) {
+  if(a_sub_b(b, a)) {
     return(min(max(1-a[2],b[2]),max(1-b[1],a[1])))
   }
   stop("Error in emb_fd")
