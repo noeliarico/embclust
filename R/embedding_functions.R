@@ -22,7 +22,7 @@ width <- function(interval) {
 #' @export
 #'
 #' @examples
-emb_w<- function(a, b){
+emb_w <- function(a, b){
   #a y b intervalos
   #width funcion, en este caso ancho del intervalo
   if(width(a) == 0) {
@@ -34,9 +34,13 @@ emb_w<- function(a, b){
     }
   }
   else {
-    print(3)
     i <- intersection(a, b, interval = TRUE)
-    return(width(i)/width(a))
+    if(length(i) == 1 && is.na(i)) {
+      return(0)
+    }
+    else {
+      return(width(i)/width(a))
+    }
   }
 }
 
@@ -65,6 +69,21 @@ intersection <- function(a, b, interval = FALSE) {
       return(NA)
     }
   }
+}
+
+#' Union between two intervals
+#'
+#' @param a first interval
+#' @param b second interval
+#'
+#' @return TRUE if there is intersection, FALSE otherwise
+#' @export
+#'
+#' @examples
+union <- function(a, b) {
+  left <- min(a[1],b[1])
+  right <- max(a[2],b[2])
+  return(c(left, right))
 }
 
 #' A is subset or equal to B
