@@ -27,11 +27,9 @@ emb_w<- function(a, b){
   #width funcion, en este caso ancho del intervalo
   if(width(a) == 0) {
     if (a_sub_b(a, b)) {
-      print(1)
       return(0)
     }
     else {
-      print(2)
       return(1)
     }
   }
@@ -173,7 +171,7 @@ emb_gd <- function(a,b){
 #'
 #' @return Embedding value
 #' @export
-emb_gd <- function(a,b){
+emb_gg <- function(a,b){
   if(!intersection(a, b)) {
     return(0)
   }
@@ -194,7 +192,7 @@ emb_gd <- function(a,b){
 #'
 #' @return Embedding value
 #' @export
-emb_gd <- function(a,b){
+emb_rs <- function(a,b){
   if(a_subeq_b(a, b)) {
     return(1)
   }
