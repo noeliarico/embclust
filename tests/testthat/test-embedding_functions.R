@@ -142,8 +142,16 @@ test_that("Goguen", {
   # [a = [b and b] < a]
   expect_equal(emb_gg(c(.6, .8), c(.6, .7)), 0.875) #min{b2/a2,a1/b1} min{.7/.8,.6/.6}
 
+  # a] = 0
+  expect_equal(emb_gg(c(0, 0), c(.2, .7)), 0) #min{b2/a2,a1/b1} min{.7/.8,.6/.6}
+  # [b = 0
+  expect_equal(emb_gg(c(.1, .2), c(0, .7)), 1) #min{b2/a2,a1/b1} min{.7/.8,.6/.6}
+  # a] = [b = 0
+  expect_equal(emb_gg(c(0, 0), c(0, .7)), 1) #min{b2/a2,a1/b1} min{.7/.8,.6/.6}
+
   # a] = b] and [b > [a
   expect_equal(emb_gg(c(.3, .7), c(.5, .7)), 0.6) #min{b2/a2,a1/b1} min{.7/.7,.3/.5}
+
   # a] = b] and [b < [a
   expect_equal(emb_gg(c(.6, .7), c(.3, .7)), 1)
 

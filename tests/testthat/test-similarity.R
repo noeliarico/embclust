@@ -13,10 +13,12 @@ test_that("Similariy matrix", {
                            ))
   pretty_print_interval_data(data)
 
-  sim_emb_bt_two_obj(as.numeric(data[1,]), as.numeric(data[2,]), sim_w)
-  sim_emb_bt_two_obj(as.numeric(data[1,]), as.numeric(data[2,]), sim_w, mean)
+   #sim_emb_bt_two_obj(as.numeric(data[1,]), as.numeric(data[2,]), sim_w)
+   #sim_emb_bt_two_obj(as.numeric(data[1,]), as.numeric(data[2,]), sim_w, mean)
 
   sim_emb_matrix(data, sim_w, mean)
+
+  #########
 })
 
 pretty_print_interval_data <- function(data) {
