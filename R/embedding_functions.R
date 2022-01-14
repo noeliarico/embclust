@@ -7,8 +7,61 @@ ok_interval <- function(interval) {
   }
 }
 
+# Aux functions ------------------------------------------------------------------
+
 width <- function(interval) {
   return(interval[2] - interval[1])
+}
+
+#' Intersection between two intervals
+#'
+#' @param a first interval
+#' @param b second interval
+#'
+#' @return TRUE if there is intersection, FALSE otherwise
+#' @export
+#'
+#' @examples
+intersection <- function(a, b, interval = FALSE) {
+  if(!interval)
+    return(max(a[1],b[1]) <= min(a[2],b[2]))
+  else {
+    left <- max(a[1],b[1])
+    right <- min(a[2],b[2])
+    # cat(paste0("Left: ", left, " right: ", right))
+    if(left < right) {
+      return(c(left, right))
+    }
+    else {
+      return(NA)
+    }
+  }
+}
+
+#' A is subset or equal to B
+#'
+#' @param a first interval
+#' @param b second interval
+#'
+#' @return TRUE if there is intersection, FALSE otherwise
+#' @export
+#'
+#' @examples
+a_subeq_b <- function(a, b) {
+  return(b[1] <= a[1] && a[2] <= b[2])
+}
+
+#' A is subset of B
+#'
+#' @param a first interval
+#' @param b second interval
+#'
+#' @return TRUE if there is intersection, FALSE otherwise
+#' @export
+#'
+#' @examples
+a_sub_b <- function(a, b) {
+  return(b[1] < a[1] && a[2] < b[2])
 }
 
 # Width ------------------------------------------------------------------------
@@ -42,74 +95,6 @@ emb_w <- function(a, b){
       return(width(i)/width(a))
     }
   }
-}
-
-# Aux functions ------------------------------------------------------------------
-
-#' Intersection between two intervals
-#'
-#' @param a first interval
-#' @param b second interval
-#'
-#' @return TRUE if there is intersection, FALSE otherwise
-#' @export
-#'
-#' @examples
-intersection <- function(a, b, interval = FALSE) {
-  if(!interval)
-    return(max(a[1],b[1]) <= min(a[2],b[2]))
-  else {
-    left <- max(a[1],b[1])
-    right <- min(a[2],b[2])
-    # cat(paste0("Left: ", left, " right: ", right))
-    if(left < right) {
-      return(c(left, right))
-    }
-    else {
-      return(NA)
-    }
-  }
-}
-
-#' Union between two intervals
-#'
-#' @param a first interval
-#' @param b second interval
-#'
-#' @return TRUE if there is intersection, FALSE otherwise
-#' @export
-#'
-#' @examples
-union <- function(a, b) {
-  left <- min(a[1],b[1])
-  right <- max(a[2],b[2])
-  return(c(left, right))
-}
-
-#' A is subset or equal to B
-#'
-#' @param a first interval
-#' @param b second interval
-#'
-#' @return TRUE if there is intersection, FALSE otherwise
-#' @export
-#'
-#' @examples
-a_subeq_b <- function(a, b) {
-  return(b[1] <= a[1] && a[2] <= b[2])
-}
-
-#' A is subset of B
-#'
-#' @param a first interval
-#' @param b second interval
-#'
-#' @return TRUE if there is intersection, FALSE otherwise
-#' @export
-#'
-#' @examples
-a_sub_b <- function(a, b) {
-  return(b[1] < a[1] && a[2] < b[2])
 }
 
 # Lukasiewicz ------------------------------------------------------------------
