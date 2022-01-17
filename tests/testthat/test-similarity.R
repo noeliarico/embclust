@@ -13,12 +13,57 @@ test_that("Similariy matrix", {
                            ))
   pretty_print_interval_data(data)
 
-   #sim_emb_bt_two_obj(as.numeric(data[1,]), as.numeric(data[2,]), sim_w)
-   #sim_emb_bt_two_obj(as.numeric(data[1,]), as.numeric(data[2,]), sim_w, mean)
+  sim_emb_bt_two_obj(as.numeric(data[1,]), as.numeric(data[2,]), sim_w) #comprobado
+  sim_emb_bt_two_obj(as.numeric(data[1,]), as.numeric(data[2,]), sim_w, mean) #comprobado
+  sim_emb_bt_two_obj(as.numeric(data[1,]), as.numeric(data[3,]), sim_w) #comprobado
+  sim_emb_bt_two_obj(as.numeric(data[1,]), as.numeric(data[3,]), sim_w, mean) #comprobado
+  sim_emb_bt_two_obj(as.numeric(data[2,]), as.numeric(data[3,]), sim_w) #comprobado
+  sim_emb_bt_two_obj(as.numeric(data[2,]), as.numeric(data[3,]), sim_w, mean) #comprobado
 
   sim_emb_matrix(data, sim_w, mean)
 
   #########
+  # Define data
+  data <- tibble::tribble(~v1L,~v1R,~v2L,~v2R,~v3L,~v3R)
+  data <- dplyr::bind_rows(data,
+                           tibble::tibble(
+                             v1L = c(.2,0,.4),
+                             v1R = c(.3,1,1),
+                             v2L = c(.3,.6,.6),
+                             v2R = c(.7,.7,.8),
+                             v3L = c(.5,.4,.4),
+                             v3R = c(.5,.6,.7)
+                           ))
+  pretty_print_interval_data(data)
+
+  sim_emb_bt_two_obj(as.numeric(data[1,]), as.numeric(data[2,]), sim_w) #comprobado
+  sim_emb_bt_two_obj(as.numeric(data[1,]), as.numeric(data[2,]), sim_w, mean) #comprobado
+  sim_emb_bt_two_obj(as.numeric(data[1,]), as.numeric(data[3,]), sim_w) #comprobado
+  sim_emb_bt_two_obj(as.numeric(data[1,]), as.numeric(data[3,]), sim_w, mean) #comprobado
+  sim_emb_bt_two_obj(as.numeric(data[2,]), as.numeric(data[3,]), sim_w) #comprobado
+  sim_emb_bt_two_obj(as.numeric(data[2,]), as.numeric(data[3,]), sim_w, mean) #comprobado
+
+  #########
+  # Define data
+  data <- tibble::tribble(~v1L,~v1R,~v2L,~v2R,~v3L,~v3R)
+  data <- dplyr::bind_rows(data,
+                           tibble::tibble(
+                             v1L = c(0,0,.6),
+                             v1R = c(.3,0,1),
+                             v2L = c(.3,0,0),
+                             v2R = c(1,.7,0),
+                             v3L = c(0,.4,.0),
+                             v3R = c(.5,1,.1)
+                           ))
+  pretty_print_interval_data(data)
+
+  sim_emb_bt_two_obj(as.numeric(data[1,]), as.numeric(data[2,]), sim_w) #comprobado
+  sim_emb_bt_two_obj(as.numeric(data[1,]), as.numeric(data[2,]), sim_w, mean) #comprobado
+  sim_emb_bt_two_obj(as.numeric(data[1,]), as.numeric(data[3,]), sim_w) #comprobado
+  sim_emb_bt_two_obj(as.numeric(data[1,]), as.numeric(data[3,]), sim_w, mean) #comprobado
+  sim_emb_bt_two_obj(as.numeric(data[2,]), as.numeric(data[3,]), sim_w) #comprobado
+  sim_emb_bt_two_obj(as.numeric(data[2,]), as.numeric(data[3,]), sim_w, mean) #comprobado
+
 })
 
 pretty_print_interval_data <- function(data) {
