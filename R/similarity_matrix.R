@@ -138,3 +138,47 @@ sim_emb_test_train <- function(data_test, data_train, emb_sim, agg, verbose = F)
 
 
 
+#' Matrix of similarities
+#'
+#' Given a dataset this computes a matrix of similarities using an embe
+#'
+#' @param data Dataset where each row is one of the objects. The data must have
+#' an even pair of variables where the i-th column such that i is an odd number
+#' is the lower bound of the interval representing the variable and the i+1 column
+#' the corresponding upper bound.
+#' @param emb_sim Embedding similarity
+#' @param agg Aggregation function e.g. sum, mean
+#' @param verbose
+#'
+#' @return
+#' @export
+#'
+#' @examples
+sim_emb_obj_train <- function(obj, data_train, emb_sim, agg, verbose = F) {
+
+  nobjsTrain <- nrow(data_train) # Number of objects in the training set
+  nvariables <- ncol(data_train)
+
+  # Pairwise comparison of the objects
+  smat <- sapply(1:nobjsTrain, function(objTrain) {
+        # Given two objects: objTest and objTrain
+        # Compare each pair of variables and get a vector with one element
+        # for each variable (i.e. ncol(data)/2 elements) where each element
+        # is the value of the similarity function that based on an embedding
+        # function, which gives the similarity between the two objects in
+        # this variables according to this function
+
+        # print(data_train[objTrain, ])
+        emb_vector <- sapply(seq(1, nvariables, 2), function(i) {
+          emb_sim(as.numeric(objTest[c(i,i+1)]),
+                  as.numeric(data_train[objTrain, c(i,i+1)]))
+        })
+        # emb stores a vector with the results of comparing two objects
+        # variable by variable using an embedding function
+      })
+
+  return(apply(smat, 2, agg))
+}
+
+
+
