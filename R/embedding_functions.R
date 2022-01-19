@@ -179,8 +179,14 @@ emb_gg <- function(a,b){
   if(!intersection(a, b)) {
     return(0)
   }
-  else if(a_subeq_b(a, b) || a[2] == 0 || b[1] == 0) {
+  else if(a_subeq_b(a, b)) {
     return(1)
+  }
+  else if(a[2] == 0) {
+    return(a[1]/b[1])
+  }
+  else if(b[1] == 0) {
+    return(b[2]/a[2])
   }
   else {
     return(min((b[2]/a[2]), a[1]/b[1]))
