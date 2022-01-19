@@ -32,16 +32,19 @@ test_that("Similariy matrix", {
   sim_emb_bt_two_obj(as.numeric(data[2,]), as.numeric(data[3,]), sim_w)
   expect_equal(sim_emb_bt_two_obj(as.numeric(data[2,]), as.numeric(data[3,]), sim_w, mean),0.2916667,
                tolerance = 3)
+  sim_emb_matrix(data, sim_w, mean)
+
   #Lukasiewicz
   sim_emb_bt_two_obj(as.numeric(data[1,]), as.numeric(data[2,]), sim_lk)
   expect_equal(sim_emb_bt_two_obj(as.numeric(data[1,]), as.numeric(data[2,]), sim_lk, mean),0.85,
                tolerance = 3)
   sim_emb_bt_two_obj(as.numeric(data[1,]), as.numeric(data[3,]), sim_lk)
-  expect_equal(sim_emb_bt_two_obj(as.numeric(data[1,]), as.numeric(data[3,]), sim_lk, mean),0.66667,
+  expect_equal(sim_emb_bt_two_obj(as.numeric(data[1,]), as.numeric(data[3,]), sim_lk, mean),0.6333333,
                tolerance = 3)
   sim_emb_bt_two_obj(as.numeric(data[2,]), as.numeric(data[3,]), sim_lk)
   expect_equal(sim_emb_bt_two_obj(as.numeric(data[2,]), as.numeric(data[3,]), sim_lk, mean),0.5333333,
                tolerance = 3)
+  sim_emb_matrix(data, sim_lk, mean)
   #fodor
   sim_emb_bt_two_obj(as.numeric(data[1,]), as.numeric(data[2,]), sim_fd)
   expect_equal(sim_emb_bt_two_obj(as.numeric(data[1,]), as.numeric(data[2,]), sim_fd, mean),0.65,
@@ -52,6 +55,7 @@ test_that("Similariy matrix", {
   sim_emb_bt_two_obj(as.numeric(data[2,]), as.numeric(data[3,]), sim_fd)
   expect_equal(sim_emb_bt_two_obj(as.numeric(data[2,]), as.numeric(data[3,]), sim_fd, mean),0.3833333,
                tolerance = 3)
+  sim_emb_matrix(data, sim_fd, mean)
   #godel
   sim_emb_bt_two_obj(as.numeric(data[1,]), as.numeric(data[2,]), sim_gd)
   expect_equal(sim_emb_bt_two_obj(as.numeric(data[1,]), as.numeric(data[2,]), sim_gd, mean),0.4166667,
@@ -62,6 +66,7 @@ test_that("Similariy matrix", {
   sim_emb_bt_two_obj(as.numeric(data[2,]), as.numeric(data[3,]), sim_gd)
   expect_equal(sim_emb_bt_two_obj(as.numeric(data[2,]), as.numeric(data[3,]), sim_gd, mean),0.2333333,
                tolerance = 3)
+  sim_emb_matrix(data, sim_gd, mean)
   #goguen
   sim_emb_bt_two_obj(as.numeric(data[1,]), as.numeric(data[2,]), sim_gg)
   expect_equal(sim_emb_bt_two_obj(as.numeric(data[1,]), as.numeric(data[2,]), sim_gg, mean),0.6369048,
@@ -72,6 +77,7 @@ test_that("Similariy matrix", {
   sim_emb_bt_two_obj(as.numeric(data[2,]), as.numeric(data[3,]), sim_gg)
   expect_equal(sim_emb_bt_two_obj(as.numeric(data[2,]), as.numeric(data[3,]), sim_gg, mean),0.3869048,
                tolerance = 3)
+  sim_emb_matrix(data, sim_gg, mean)
   #rescher
   sim_emb_bt_two_obj(as.numeric(data[1,]), as.numeric(data[2,]), sim_rs)
   expect_equal(sim_emb_bt_two_obj(as.numeric(data[1,]), as.numeric(data[2,]), sim_rs, mean),0.1666667,
@@ -82,9 +88,8 @@ test_that("Similariy matrix", {
   sim_emb_bt_two_obj(as.numeric(data[2,]), as.numeric(data[3,]), sim_rs)
   expect_equal(sim_emb_bt_two_obj(as.numeric(data[2,]), as.numeric(data[3,]), sim_rs, mean),0,
                tolerance = 3)
+  sim_emb_matrix(data, sim_rs, mean)
 
-
-  sim_emb_matrix(data, sim_w, mean)
 
   #########
   # Define data
@@ -100,6 +105,7 @@ test_that("Similariy matrix", {
                            ))
   pretty_print_interval_data(data)
 
+  #width
   sim_emb_bt_two_obj(as.numeric(data[1,]), as.numeric(data[2,]), sim_w)
   expect_equal(sim_emb_bt_two_obj(as.numeric(data[1,]), as.numeric(data[2,]), sim_w, mean),0.5583333,
                tolerance = 3)
@@ -109,6 +115,8 @@ test_that("Similariy matrix", {
   sim_emb_bt_two_obj(as.numeric(data[2,]), as.numeric(data[3,]), sim_w)
   expect_equal(sim_emb_bt_two_obj(as.numeric(data[2,]), as.numeric(data[3,]), sim_w, mean),0.7944444,
                tolerance = 3)
+  sim_emb_matrix(data, sim_w, mean)
+
   #Lukasiewicz
   sim_emb_bt_two_obj(as.numeric(data[1,]), as.numeric(data[2,]), sim_lk)
   expect_equal(sim_emb_bt_two_obj(as.numeric(data[1,]), as.numeric(data[2,]), sim_lk, mean),0.8166667,
@@ -119,6 +127,7 @@ test_that("Similariy matrix", {
   sim_emb_bt_two_obj(as.numeric(data[2,]), as.numeric(data[3,]), sim_lk)
   expect_equal(sim_emb_bt_two_obj(as.numeric(data[2,]), as.numeric(data[3,]), sim_lk, mean),0.9,
                tolerance = 3)
+  sim_emb_matrix(data, sim_lk, mean)
   #fodor
   sim_emb_bt_two_obj(as.numeric(data[1,]), as.numeric(data[2,]), sim_fd)
   expect_equal(sim_emb_bt_two_obj(as.numeric(data[1,]), as.numeric(data[2,]), sim_fd, mean),0.7,
@@ -129,6 +138,7 @@ test_that("Similariy matrix", {
   sim_emb_bt_two_obj(as.numeric(data[2,]), as.numeric(data[3,]), sim_fd)
   expect_equal(sim_emb_bt_two_obj(as.numeric(data[2,]), as.numeric(data[3,]), sim_fd, mean),0.8166667,
                tolerance = 3)
+  sim_emb_matrix(data, sim_fd, mean)
   #godel
   sim_emb_bt_two_obj(as.numeric(data[1,]), as.numeric(data[2,]), sim_gd)
   expect_equal(sim_emb_bt_two_obj(as.numeric(data[1,]), as.numeric(data[2,]), sim_gd, mean),0.6166667,
@@ -139,6 +149,7 @@ test_that("Similariy matrix", {
   sim_emb_bt_two_obj(as.numeric(data[2,]), as.numeric(data[3,]), sim_gd)
   expect_equal(sim_emb_bt_two_obj(as.numeric(data[2,]), as.numeric(data[3,]), sim_gd, mean),0.71666667,
                tolerance = 3)
+  sim_emb_matrix(data, sim_gd, mean)
   #goguen
   sim_emb_bt_two_obj(as.numeric(data[1,]), as.numeric(data[2,]), sim_gg)
   expect_equal(sim_emb_bt_two_obj(as.numeric(data[1,]), as.numeric(data[2,]), sim_gg, mean),0.7166667,
@@ -149,6 +160,7 @@ test_that("Similariy matrix", {
   sim_emb_bt_two_obj(as.numeric(data[2,]), as.numeric(data[3,]), sim_gg)
   expect_equal(sim_emb_bt_two_obj(as.numeric(data[2,]), as.numeric(data[3,]), sim_gg, mean),0.7886905,
                tolerance = 3)
+  sim_emb_matrix(data, sim_gg, mean)
   #rescher
   sim_emb_bt_two_obj(as.numeric(data[1,]), as.numeric(data[2,]), sim_rs)
   expect_equal(sim_emb_bt_two_obj(as.numeric(data[1,]), as.numeric(data[2,]), sim_rs, mean),0.5,
@@ -159,6 +171,7 @@ test_that("Similariy matrix", {
   sim_emb_bt_two_obj(as.numeric(data[2,]), as.numeric(data[3,]), sim_rs)
   expect_equal(sim_emb_bt_two_obj(as.numeric(data[2,]), as.numeric(data[3,]), sim_rs, mean),0.5,
                tolerance = 3)
+  sim_emb_matrix(data, sim_rs, mean)
 
 
   #########
@@ -175,15 +188,16 @@ test_that("Similariy matrix", {
                            ))
   pretty_print_interval_data(data)
   #width
-  sim_emb_bt_two_obj(as.numeric(data[1,]), as.numeric(data[2,]), sim_w) #comprobado
+  sim_emb_bt_two_obj(as.numeric(data[1,]), as.numeric(data[2,]), sim_w)
   expect_equal(sim_emb_bt_two_obj(as.numeric(data[1,]), as.numeric(data[2,]), sim_w, mean),0.418254,
-               tolerance = 3) #comprobado
-  sim_emb_bt_two_obj(as.numeric(data[1,]), as.numeric(data[3,]), sim_w) #comprobado
+               tolerance = 3)
+  sim_emb_bt_two_obj(as.numeric(data[1,]), as.numeric(data[3,]), sim_w)
   expect_equal(sim_emb_bt_two_obj(as.numeric(data[1,]), as.numeric(data[3,]), sim_w, mean),0.2,
-               tolerance = 3) #comprobado
-  sim_emb_bt_two_obj(as.numeric(data[2,]), as.numeric(data[3,]), sim_w) #comprobado
+               tolerance = 3)
+  sim_emb_bt_two_obj(as.numeric(data[2,]), as.numeric(data[3,]), sim_w)
   expect_equal(sim_emb_bt_two_obj(as.numeric(data[2,]), as.numeric(data[3,]), sim_w, mean),0.1666667,
-               tolerance = 3) #comprobado
+               tolerance = 3)
+  sim_emb_matrix(data, sim_w, mean)
   #Lukasiewicz
   sim_emb_bt_two_obj(as.numeric(data[1,]), as.numeric(data[2,]), sim_lk)
   expect_equal(sim_emb_bt_two_obj(as.numeric(data[1,]), as.numeric(data[2,]), sim_lk, mean),0.7,
@@ -194,6 +208,7 @@ test_that("Similariy matrix", {
   sim_emb_bt_two_obj(as.numeric(data[2,]), as.numeric(data[3,]), sim_lk)
   expect_equal(sim_emb_bt_two_obj(as.numeric(data[2,]), as.numeric(data[3,]), sim_lk, mean),0.2166667,
                tolerance = 3)
+  sim_emb_matrix(data, sim_lk, mean)
   #fodor
   sim_emb_bt_two_obj(as.numeric(data[1,]), as.numeric(data[2,]), sim_fd)
   expect_equal(sim_emb_bt_two_obj(as.numeric(data[1,]), as.numeric(data[2,]), sim_fd, mean),0.7,
@@ -204,6 +219,7 @@ test_that("Similariy matrix", {
   sim_emb_bt_two_obj(as.numeric(data[2,]), as.numeric(data[3,]), sim_fd)
   expect_equal(sim_emb_bt_two_obj(as.numeric(data[2,]), as.numeric(data[3,]), sim_fd, mean),0.21666667,
                tolerance = 3)
+  sim_emb_matrix(data, sim_fd, mean)
   #godel
   sim_emb_bt_two_obj(as.numeric(data[1,]), as.numeric(data[2,]), sim_gd)
   expect_equal(sim_emb_bt_two_obj(as.numeric(data[1,]), as.numeric(data[2,]), sim_gd, mean),0.3666667,
@@ -214,16 +230,18 @@ test_that("Similariy matrix", {
   sim_emb_bt_two_obj(as.numeric(data[2,]), as.numeric(data[3,]), sim_gd)
   expect_equal(sim_emb_bt_two_obj(as.numeric(data[2,]), as.numeric(data[3,]), sim_gd, mean),0.1666667,
                tolerance = 3)
+  sim_emb_matrix(data, sim_gd, mean)
   #goguen
   sim_emb_bt_two_obj(as.numeric(data[1,]), as.numeric(data[2,]), sim_gg)
-  expect_equal(sim_emb_bt_two_obj(as.numeric(data[1,]), as.numeric(data[2,]), sim_gg, mean),0,
+  expect_equal(sim_emb_bt_two_obj(as.numeric(data[1,]), as.numeric(data[2,]), sim_gg, mean),0.3666667,
                tolerance = 3)
   sim_emb_bt_two_obj(as.numeric(data[1,]), as.numeric(data[3,]), sim_gg)
-  expect_equal(sim_emb_bt_two_obj(as.numeric(data[1,]), as.numeric(data[3,]), sim_gg, mean),0,
+  expect_equal(sim_emb_bt_two_obj(as.numeric(data[1,]), as.numeric(data[3,]), sim_gg, mean),0.2,
                tolerance = 3)
   sim_emb_bt_two_obj(as.numeric(data[2,]), as.numeric(data[3,]), sim_gg)
-  expect_equal(sim_emb_bt_two_obj(as.numeric(data[2,]), as.numeric(data[3,]), sim_gg, mean),0,
+  expect_equal(sim_emb_bt_two_obj(as.numeric(data[2,]), as.numeric(data[3,]), sim_gg, mean),0.1666667,
                tolerance = 3)
+  sim_emb_matrix(data, sim_gg, mean)
   #rescher
   sim_emb_bt_two_obj(as.numeric(data[1,]), as.numeric(data[2,]), sim_rs)
   expect_equal(sim_emb_bt_two_obj(as.numeric(data[1,]), as.numeric(data[2,]), sim_rs, mean),0.1666667,
@@ -234,6 +252,180 @@ test_that("Similariy matrix", {
   sim_emb_bt_two_obj(as.numeric(data[2,]), as.numeric(data[3,]), sim_rs)
   expect_equal(sim_emb_bt_two_obj(as.numeric(data[2,]), as.numeric(data[3,]), sim_rs, mean),0.1666667,
                tolerance = 3)
+  sim_emb_matrix(data, sim_rs, mean)
+
+
+  #########
+  # Define data
+  data <- tibble::tribble(~v1L,~v1R,~v2L,~v2R,~v3L,~v3R)
+  data <- dplyr::bind_rows(data,
+                           tibble::tibble(
+                             v1L = c(.1,.2,0,.4),
+                             v1R = c(.3,1,.3,.5),
+                             v2L = c(.3,.6,.4,.3),
+                             v2R = c(.6,.9,.7,.8),
+                             v3L = c(.5,.3,.4,.6),
+                             v3R = c(.8,.5,.6,.7)
+                           ))
+  pretty_print_interval_data(data)
+
+  #width
+  sim_emb_bt_two_obj(as.numeric(data[1,]), as.numeric(data[2,]), sim_w)
+  sim_emb_bt_two_obj(as.numeric(data[1,]), as.numeric(data[2,]), sim_w, mean)
+  sim_emb_bt_two_obj(as.numeric(data[1,]), as.numeric(data[3,]), sim_w)
+  sim_emb_bt_two_obj(as.numeric(data[1,]), as.numeric(data[3,]), sim_w, mean)
+  sim_emb_bt_two_obj(as.numeric(data[1,]), as.numeric(data[4,]), sim_w)
+  sim_emb_bt_two_obj(as.numeric(data[1,]), as.numeric(data[4,]), sim_w, mean)
+  sim_emb_bt_two_obj(as.numeric(data[2,]), as.numeric(data[3,]), sim_w)
+  sim_emb_bt_two_obj(as.numeric(data[2,]), as.numeric(data[3,]), sim_w, mean)
+  sim_emb_bt_two_obj(as.numeric(data[2,]), as.numeric(data[4,]), sim_w)
+  sim_emb_bt_two_obj(as.numeric(data[2,]), as.numeric(data[4,]), sim_w, mean)
+  sim_emb_bt_two_obj(as.numeric(data[3,]), as.numeric(data[4,]), sim_w)
+  sim_emb_bt_two_obj(as.numeric(data[3,]), as.numeric(data[4,]), sim_w, mean)
+  sim_emb_matrix(data, sim_w, mean)
+
+  #Lukasiewicz
+  sim_emb_bt_two_obj(as.numeric(data[1,]), as.numeric(data[2,]), sim_lk)
+  sim_emb_bt_two_obj(as.numeric(data[1,]), as.numeric(data[2,]), sim_lk, mean)
+  sim_emb_bt_two_obj(as.numeric(data[1,]), as.numeric(data[3,]), sim_lk)
+  sim_emb_bt_two_obj(as.numeric(data[1,]), as.numeric(data[3,]), sim_lk, mean)
+  sim_emb_bt_two_obj(as.numeric(data[1,]), as.numeric(data[4,]), sim_lk)
+  sim_emb_bt_two_obj(as.numeric(data[1,]), as.numeric(data[4,]), sim_lk, mean)
+  sim_emb_bt_two_obj(as.numeric(data[2,]), as.numeric(data[3,]), sim_lk)
+  sim_emb_bt_two_obj(as.numeric(data[2,]), as.numeric(data[3,]), sim_lk, mean)
+  sim_emb_bt_two_obj(as.numeric(data[2,]), as.numeric(data[4,]), sim_lk)
+  sim_emb_bt_two_obj(as.numeric(data[2,]), as.numeric(data[4,]), sim_lk, mean)
+  sim_emb_bt_two_obj(as.numeric(data[3,]), as.numeric(data[4,]), sim_lk)
+  sim_emb_bt_two_obj(as.numeric(data[3,]), as.numeric(data[4,]), sim_lk, mean)
+  sim_emb_matrix(data, sim_lk, mean)
+  #fodor
+  sim_emb_bt_two_obj(as.numeric(data[1,]), as.numeric(data[2,]), sim_fd)
+  sim_emb_bt_two_obj(as.numeric(data[1,]), as.numeric(data[2,]), sim_fd, mean)
+  sim_emb_bt_two_obj(as.numeric(data[1,]), as.numeric(data[3,]), sim_fd)
+  sim_emb_bt_two_obj(as.numeric(data[1,]), as.numeric(data[3,]), sim_fd, mean)
+  sim_emb_bt_two_obj(as.numeric(data[1,]), as.numeric(data[4,]), sim_fd)
+  sim_emb_bt_two_obj(as.numeric(data[1,]), as.numeric(data[4,]), sim_fd, mean)
+  sim_emb_bt_two_obj(as.numeric(data[2,]), as.numeric(data[3,]), sim_fd)
+  sim_emb_bt_two_obj(as.numeric(data[2,]), as.numeric(data[3,]), sim_fd, mean)
+  sim_emb_bt_two_obj(as.numeric(data[2,]), as.numeric(data[4,]), sim_fd)
+  sim_emb_bt_two_obj(as.numeric(data[2,]), as.numeric(data[4,]), sim_fd, mean)
+  sim_emb_bt_two_obj(as.numeric(data[3,]), as.numeric(data[4,]), sim_fd)
+  sim_emb_bt_two_obj(as.numeric(data[3,]), as.numeric(data[4,]), sim_fd, mean)
+  sim_emb_matrix(data, sim_fd, mean)
+  #godel
+  sim_emb_bt_two_obj(as.numeric(data[1,]), as.numeric(data[2,]), sim_gd)
+  sim_emb_bt_two_obj(as.numeric(data[1,]), as.numeric(data[2,]), sim_gd, mean)
+  sim_emb_bt_two_obj(as.numeric(data[1,]), as.numeric(data[3,]), sim_gd)
+  sim_emb_bt_two_obj(as.numeric(data[1,]), as.numeric(data[3,]), sim_gd, mean)
+  sim_emb_bt_two_obj(as.numeric(data[1,]), as.numeric(data[4,]), sim_gd)
+  sim_emb_bt_two_obj(as.numeric(data[1,]), as.numeric(data[4,]), sim_gd, mean)
+  sim_emb_bt_two_obj(as.numeric(data[2,]), as.numeric(data[3,]), sim_gd)
+  sim_emb_bt_two_obj(as.numeric(data[2,]), as.numeric(data[3,]), sim_gd, mean)
+  sim_emb_bt_two_obj(as.numeric(data[2,]), as.numeric(data[4,]), sim_gd)
+  sim_emb_bt_two_obj(as.numeric(data[2,]), as.numeric(data[4,]), sim_gd, mean)
+  sim_emb_bt_two_obj(as.numeric(data[3,]), as.numeric(data[4,]), sim_gd)
+  sim_emb_bt_two_obj(as.numeric(data[3,]), as.numeric(data[4,]), sim_gd, mean)
+  sim_emb_matrix(data, sim_gd, mean)
+  #goguen
+  sim_emb_bt_two_obj(as.numeric(data[1,]), as.numeric(data[2,]), sim_gg)
+  sim_emb_bt_two_obj(as.numeric(data[1,]), as.numeric(data[2,]), sim_gg, mean)
+  sim_emb_bt_two_obj(as.numeric(data[1,]), as.numeric(data[3,]), sim_gg)
+  sim_emb_bt_two_obj(as.numeric(data[1,]), as.numeric(data[3,]), sim_gg, mean)
+  sim_emb_bt_two_obj(as.numeric(data[1,]), as.numeric(data[4,]), sim_gg)
+  sim_emb_bt_two_obj(as.numeric(data[1,]), as.numeric(data[4,]), sim_gg, mean)
+  sim_emb_bt_two_obj(as.numeric(data[2,]), as.numeric(data[3,]), sim_gg)
+  sim_emb_bt_two_obj(as.numeric(data[2,]), as.numeric(data[3,]), sim_gg, mean)
+  sim_emb_bt_two_obj(as.numeric(data[2,]), as.numeric(data[4,]), sim_gg)
+  sim_emb_bt_two_obj(as.numeric(data[2,]), as.numeric(data[4,]), sim_gg, mean)
+  sim_emb_bt_two_obj(as.numeric(data[3,]), as.numeric(data[4,]), sim_gg)
+  sim_emb_bt_two_obj(as.numeric(data[3,]), as.numeric(data[4,]), sim_gg, mean)
+  sim_emb_matrix(data, sim_gg, mean)
+  #rescher
+  sim_emb_bt_two_obj(as.numeric(data[1,]), as.numeric(data[2,]), sim_rs)
+  sim_emb_bt_two_obj(as.numeric(data[1,]), as.numeric(data[2,]), sim_rs, mean)
+  sim_emb_bt_two_obj(as.numeric(data[1,]), as.numeric(data[3,]), sim_rs)
+  sim_emb_bt_two_obj(as.numeric(data[1,]), as.numeric(data[3,]), sim_rs, mean)
+  sim_emb_bt_two_obj(as.numeric(data[1,]), as.numeric(data[4,]), sim_rs)
+  sim_emb_bt_two_obj(as.numeric(data[1,]), as.numeric(data[4,]), sim_rs, mean)
+  sim_emb_bt_two_obj(as.numeric(data[2,]), as.numeric(data[3,]), sim_rs)
+  sim_emb_bt_two_obj(as.numeric(data[2,]), as.numeric(data[3,]), sim_rs, mean)
+  sim_emb_bt_two_obj(as.numeric(data[2,]), as.numeric(data[4,]), sim_rs)
+  sim_emb_bt_two_obj(as.numeric(data[2,]), as.numeric(data[4,]), sim_rs, mean)
+  sim_emb_bt_two_obj(as.numeric(data[3,]), as.numeric(data[4,]), sim_rs)
+  sim_emb_bt_two_obj(as.numeric(data[3,]), as.numeric(data[4,]), sim_rs, mean)
+  sim_emb_matrix(data, sim_rs, mean)
+
+
+  #########
+  # Define data
+  data <- tibble::tribble(~v1L,~v1R,~v2L,~v2R,~v3L,~v3R,~v4L,~v4R)
+  data <- dplyr::bind_rows(data,
+                           tibble::tibble(
+                             v1L = c(0.2,0,.6),
+                             v1R = c(.3,0.5,.7),
+                             v2L = c(.3,0,0),
+                             v2R = c(.5,.4,0),
+                             v3L = c(0,.4,0.8),
+                             v3R = c(.9,.6,1),
+                             v4L = c(.4,.3,.2),
+                             v4R = c(.8,.7,.6)
+                           ))
+  pretty_print_interval_data(data)
+  #width
+  sim_emb_bt_two_obj(as.numeric(data[1,]), as.numeric(data[2,]), sim_w)
+  sim_emb_bt_two_obj(as.numeric(data[1,]), as.numeric(data[2,]), sim_w, mean)
+  sim_emb_bt_two_obj(as.numeric(data[1,]), as.numeric(data[3,]), sim_w)
+  sim_emb_bt_two_obj(as.numeric(data[1,]), as.numeric(data[3,]), sim_w, mean)
+  sim_emb_bt_two_obj(as.numeric(data[2,]), as.numeric(data[3,]), sim_w)
+  sim_emb_bt_two_obj(as.numeric(data[2,]), as.numeric(data[3,]), sim_w, mean)
+
+  sim_emb_matrix(data, sim_w, mean)
+
+  #Lukasiewicz
+  sim_emb_bt_two_obj(as.numeric(data[1,]), as.numeric(data[2,]), sim_lk)
+  sim_emb_bt_two_obj(as.numeric(data[1,]), as.numeric(data[2,]), sim_lk, mean)
+  sim_emb_bt_two_obj(as.numeric(data[1,]), as.numeric(data[3,]), sim_lk)
+  sim_emb_bt_two_obj(as.numeric(data[1,]), as.numeric(data[3,]), sim_lk, mean)
+  sim_emb_bt_two_obj(as.numeric(data[2,]), as.numeric(data[3,]), sim_lk)
+  sim_emb_bt_two_obj(as.numeric(data[2,]), as.numeric(data[3,]), sim_lk, mean)
+
+  sim_emb_matrix(data, sim_lk, mean)
+  #fodor
+  sim_emb_bt_two_obj(as.numeric(data[1,]), as.numeric(data[2,]), sim_fd)
+  sim_emb_bt_two_obj(as.numeric(data[1,]), as.numeric(data[2,]), sim_fd, mean)
+  sim_emb_bt_two_obj(as.numeric(data[1,]), as.numeric(data[3,]), sim_fd)
+  sim_emb_bt_two_obj(as.numeric(data[1,]), as.numeric(data[3,]), sim_fd, mean)
+  sim_emb_bt_two_obj(as.numeric(data[2,]), as.numeric(data[3,]), sim_fd)
+  sim_emb_bt_two_obj(as.numeric(data[2,]), as.numeric(data[3,]), sim_fd, mean)
+
+  sim_emb_matrix(data, sim_fd, mean)
+  #godel
+  sim_emb_bt_two_obj(as.numeric(data[1,]), as.numeric(data[2,]), sim_gd)
+  sim_emb_bt_two_obj(as.numeric(data[1,]), as.numeric(data[2,]), sim_gd, mean)
+  sim_emb_bt_two_obj(as.numeric(data[1,]), as.numeric(data[3,]), sim_gd)
+  sim_emb_bt_two_obj(as.numeric(data[1,]), as.numeric(data[3,]), sim_gd, mean)
+  sim_emb_bt_two_obj(as.numeric(data[2,]), as.numeric(data[3,]), sim_gd)
+  sim_emb_bt_two_obj(as.numeric(data[2,]), as.numeric(data[3,]), sim_gd, mean)
+
+  sim_emb_matrix(data, sim_gd, mean)
+  #goguen
+  sim_emb_bt_two_obj(as.numeric(data[1,]), as.numeric(data[2,]), sim_gg)
+  sim_emb_bt_two_obj(as.numeric(data[1,]), as.numeric(data[2,]), sim_gg, mean)
+  sim_emb_bt_two_obj(as.numeric(data[1,]), as.numeric(data[3,]), sim_gg)
+  sim_emb_bt_two_obj(as.numeric(data[1,]), as.numeric(data[3,]), sim_gg, mean)
+  sim_emb_bt_two_obj(as.numeric(data[2,]), as.numeric(data[3,]), sim_gg)
+  sim_emb_bt_two_obj(as.numeric(data[2,]), as.numeric(data[3,]), sim_gg, mean)
+
+  sim_emb_matrix(data, sim_gg, mean)
+  #rescher
+  sim_emb_bt_two_obj(as.numeric(data[1,]), as.numeric(data[2,]), sim_rs)
+  sim_emb_bt_two_obj(as.numeric(data[1,]), as.numeric(data[2,]), sim_rs, mean)
+  sim_emb_bt_two_obj(as.numeric(data[1,]), as.numeric(data[3,]), sim_rs)
+  sim_emb_bt_two_obj(as.numeric(data[1,]), as.numeric(data[3,]), sim_rs, mean)
+  sim_emb_bt_two_obj(as.numeric(data[2,]), as.numeric(data[3,]), sim_rs)
+  sim_emb_bt_two_obj(as.numeric(data[2,]), as.numeric(data[3,]), sim_rs, mean)
+
+  sim_emb_matrix(data, sim_rs, mean)
 
  })
 
