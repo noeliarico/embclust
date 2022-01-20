@@ -39,7 +39,7 @@ sim_emb_bt_two_obj <- function(obj1, obj2, emb_sim, agg = NULL) {
 #' @export
 #'
 #' @examples
-sim_emb_matrix <- function(data, emb_sim, agg, verbose = F) {
+sim_emb_matrix <- function(data, emb_sim, agg, verbose = F, dist = T) {
 
   nobjs <- nrow(data) # Number of objects in the data
 
@@ -81,7 +81,12 @@ sim_emb_matrix <- function(data, emb_sim, agg, verbose = F) {
     c(rep(0, n-length(x)), x)
   }, nobjs))
 
-  return(smat)
+  if(dist) {
+    as.dist(t(rbind(smat, 0)))
+  } else {
+    return(smat)
+  }
+
 }
 
 
