@@ -38,6 +38,22 @@ intersection <- function(a, b, interval = FALSE) {
   }
 }
 
+#' Union between two intervals
+#'
+#' @param a first interval
+#' @param b second interval
+#'
+#' @return
+#' @export
+#'
+#' @examples
+union <- function(a, b, interval = FALSE) {
+  left <- min(a[1],b[1])
+  right <- max(a[2],b[2])
+  return(c(left, right))
+}
+
+
 #' A is subset or equal to B
 #'
 #' @param a first interval
@@ -208,5 +224,22 @@ emb_rs <- function(a,b){
   }
   else {
     return(0)
+  }
+}
+
+# Parametrized -----------------------------------------------------------------
+
+similarity <- function(a, b, method){
+  if(method == "dice") {
+    return( width(intersect(a,b)) / ((1/2) * (width(a)+width(b)) ) )
+  }
+  if(method == "jaccard") {
+    return( width(intersect(a,b)) / width(union(a,b)) )
+  }
+  if(method == "mean") {
+    return( ( (width(i)/width(a)) + (width(i)/width(b)) ) / 2 )
+  }
+  if(method == "product") {
+    return( (width(i)/width(a)) * (width(i)/width(b)) )
   }
 }
