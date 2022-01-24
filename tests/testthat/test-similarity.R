@@ -9,6 +9,17 @@ test_that("Similariy matrix", {
     })
     cat(paste(out, collapse = "\n"))
   }
+
+  pretty_print_interval_data <- function(data, names) {
+    obj <- 1
+    out <- sapply(1:nrow(data), function(obj) {
+      paste(names[obj], " ", paste(sapply(seq(1, ncol(data), 2), function(i) {
+        paste0("[", round(as.numeric(data[obj, i]), 2), ",", round(as.numeric(data[obj, i+1]), 2), "]")
+      }), collapse = "  "))
+    })
+    cat(paste(out, collapse = "\n"))
+  }
+
   # Define data
   data <- tibble::tribble(~v1L,~v1R,~v2L,~v2R,~v3L,~v3R)
   data <- dplyr::bind_rows(data,

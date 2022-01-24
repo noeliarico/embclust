@@ -29,7 +29,7 @@ intersection <- function(a, b, interval = FALSE) {
     left <- max(a[1],b[1])
     right <- min(a[2],b[2])
     # cat(paste0("Left: ", left, " right: ", right))
-    if(left < right) {
+    if(left <= right) {
       return(c(left, right))
     }
     else {
@@ -37,6 +37,22 @@ intersection <- function(a, b, interval = FALSE) {
     }
   }
 }
+
+#' Union between two intervals
+#'
+#' @param a first interval
+#' @param b second interval
+#'
+#' @return
+#' @export
+#'
+#' @examples
+union <- function(a, b, interval = FALSE) {
+  left <- min(a[1],b[1])
+  right <- max(a[2],b[2])
+  return(c(left, right))
+}
+
 
 #' A is subset or equal to B
 #'
@@ -208,5 +224,33 @@ emb_rs <- function(a,b){
   }
   else {
     return(0)
+  }
+}
+
+# Parametrized -----------------------------------------------------------------
+
+#' Rescher embedding function
+#'
+#' @param a interval
+#' @param b interval
+#'
+#' @return Embedding value
+#' @export
+similarity <- function(a, b, method){
+  i <- intersection(a,b, interval = TRUE)
+  if(method == "dice") {
+    return( width(i) / ((1/2) * (width(a)+width(b)) ) )
+  }
+  if(method == "jaccard") {
+    return( width(i) / width(union(a,b)) )
+  }
+  if(method == "mean") {
+    return( ( (width(i)/width(a)) + (width(i)/width(b)) ) / 2 )
+  }
+  if(method == "min") {
+    return( min((width(i)/width(a)) , (width(i)/width(b)) ))
+  }
+  if(method == "product") {
+    return( (width(i)/width(a)) * (width(i)/width(b)) )
   }
 }

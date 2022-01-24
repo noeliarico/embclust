@@ -4,7 +4,7 @@
 \alias{sim_emb_matrix}
 \title{Matrix of similarities}
 \usage{
-sim_emb_matrix(data, emb_sim, agg, verbose = F)
+sim_emb_matrix(data, emb_sim, agg, verbose = F, dist = T)
 }
 \arguments{
 \item{data}{Dataset where each row is one of the objects. The data must have
