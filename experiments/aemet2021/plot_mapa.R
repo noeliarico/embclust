@@ -40,7 +40,16 @@ plot_mapa_clusters <- function(clusters, title = "") {
 plot_mapa_altitud <- function(altitudes, title = "") {
   altitudes <- altitudes %>%
     mutate(provincia = tolower(provincia),
-           provincia = stri_trans_general(provincia, id = "Latin-ASCII"))
+           provincia = str_replace(provincia, "araba/alava", "alava"),
+           provincia = str_replace(provincia, "illes balears", "islas baleares"),
+           provincia = str_replace(provincia, "a coruna", "la coruna"),
+           provincia = str_replace(provincia, "gipuzkoa", "guipuzcoa"),
+           provincia = str_replace(provincia, "girona", "gerona"),
+           provincia = str_replace(provincia, "bizkaia", "vizcaya"),
+           provincia = str_replace(provincia, "ourense", "orense"),
+           provincia = str_replace(provincia, "sta. cruz de tenerife", "santa cruz de tenerife")
+    ) %>%
+    mutate(altitud = as.numeric(altitud))
   data_provincias_mapa <- data_provincias_mapa %>%
     left_join(altitudes, by = c("provincia" = "provincia"))
 
@@ -54,7 +63,7 @@ plot_mapa_altitud <- function(altitudes, title = "") {
                  alpha = 0.6, size = 0.2) +
     theme_void() +
     theme(panel.background = element_rect(size= 0.5, color = "black", fill = "white")) +
-    ggtitle(title) +
-    theme(legend.position = "none")
+    ggtitle(title)
 }
+plot_mapa_altitud(altitudes)
 

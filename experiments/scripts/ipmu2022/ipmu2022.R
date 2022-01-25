@@ -85,15 +85,3 @@ ej6 <- lapply(1:5, function(alpha) {
 ej <- bind_rows(ej1, ej2, ej3, ej4, ej5, ej6)
 print(ej, n = 38)
 
-######################
-
-to_plot <- ej %>% group_by(ejemplo) %>%
-  mutate(i = row_number(ejemplo)) %>%
-  ungroup() %>%
-  pivot_longer(starts_with("s"), names_to = "sim", values_to = "value")
-
-# Bar plot for each comparison where each bar is a similarity measure
-ggplot(to_plot, aes(sim, value)) +
-  geom_bar(stat = "identity") +
-  facet_grid(ejemplo~i) +
-  theme(axis.text.x = element_text(angle = 90))

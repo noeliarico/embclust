@@ -2,7 +2,7 @@ library(jsonlite)
 library(tidyverse)
 library(lubridate)
 
-path <- "experiments/weather_spain2021/aemet2021"
+path <- "experiments/weather_spain2021/capitales2021/data"
 files <- list.files(path, full.names = T)
 # Give the input file name to the function.
 results <- lapply(files, fromJSON)
@@ -10,21 +10,20 @@ results <- bind_rows(results)
 
 weather <- results %>%
   as_tibble() %>%
-  select(fecha, nombre, provincia, tmed, tmin, tmax) %>%
+  select(fecha, nombre, provincia, presMin, presMax) %>%
   mutate(fecha = as_date(fecha),
          year = year(fecha),
          day = day(fecha),
          month = month(fecha),
          fecha = NULL,
-         tmed = as.numeric(str_replace(tmed, ",", ".")),
-         tmin = as.numeric(str_replace(tmin, ",", ".")),
-         tmax = as.numeric(str_replace(tmax, ",", "."))
+         presMin = as.numeric(str_replace(presMin, ",", ".")),
+         presMax = as.numeric(str_replace(presMax, ",", "."))
   ) %>%
   rename(estacion = nombre) %>%
   mutate(provincia = tolower(provincia),
          provincia = str_replace(provincia, "araba/alava", "alava"),
          provincia = str_replace(provincia, "illes balears", "islas baleares"),
-         provincia = str_replace(provincia, "a coru.a", "la coruna"),
+         provincia = str_replace(provincia, "a coruna", "la coruna"),
          provincia = str_replace(provincia, "gipuzkoa", "guipuzcoa"),
          provincia = str_replace(provincia, "girona", "gerona"),
          provincia = str_replace(provincia, "bizkaia", "vizcaya"),
@@ -43,14 +42,14 @@ weather <- weather %>% drop_na() # drop 3094
 print(weather %>% group_by(provincia, estacion) %>% count(), n = 52)
 
 # Min and max temperature for normalization
-minT <- min(weather$tmin)
-maxT <- max(weather$tmax)
+minT <- min(weather$presMin)
+maxT <- max(weather$presMax)
 n <- function(x) {
   return((x-minT)/(maxT-minT))
 }
 weather <- weather %>% mutate(
-  maxN = n(tmax),
-  minN = n(tmin)
+  maxN = n(presMax),
+  minN = n(presMin)
 ) %>% filter(year == 2021) %>% mutate(year = NULL)
 
 print(weather %>%
@@ -58,8 +57,8 @@ print(weather %>%
         pivot_wider(names_from = month, values_from = n), n = 52)
 
 # Check range of temperatures
-range(weather$tmin)
-range(weather$tmax)
+range(weather$presMin)
+range(weather$presMax)
 range(weather$maxN)
 range(weather$minN)
 
@@ -72,11 +71,11 @@ weather_by_month <- weather %>%
             .groups = "drop")
 
 weather_by_month_plot <- weather %>%
-  select(provincia, month, tmin, tmax) %>%
+  select(provincia, month, presMin, presMax) %>%
   mutate(month = factor(month)) %>%
   group_by(provincia, month) %>%
-  summarise(min = min(tmin),
-            max = max(tmax),
+  summarise(min = min(presMin),
+            max = max(presMax),
             .groups = "drop")
 
 
@@ -106,17 +105,7 @@ print(weather_data, n = 52)
 weather_data_variables <- weather_data[,-1]
 weather_data_provinces <- weather_data %>% pull(provincia)
 
-s <- sim_emb_matrix(weather_data_variables, emb_lk, mean, dist = T)
-attr(s, "Labels") <- weather_data_provinces
-d <- 1-s
-
-plot(hclust(d, method = "average"))
-
-plot_hclust_tiles(hclust(d, method = "average"))
-
-hc <- hclust(d, method = "average")
-clusters <- data.frame(cluster = factor(cutree(hc, 4))) %>%
-  rownames_to_column("provincia")
+plot_mapa_clusters()
 
 plot_hclust_tiles <- function(hc, log = F) {
 
@@ -169,3 +158,4 @@ plot_hclust_tiles <- function(hc, log = F) {
       theme_minimal() + theme(legend.position = "none")
   }
 }
+plot_hclust_tiles(hclust(d, method = "average"))

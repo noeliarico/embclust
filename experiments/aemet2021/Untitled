@@ -1,0 +1,17 @@
+asturias: experimentos solo para los datos de asturias
+capitales: experimentos seleccionando solo la estación de la capital
+  o en su defecto la más cercana a la capital
+todas: experimentos seleccionando todas las estaciones meteorológicas
+  sobre las que la aemet da datos
+
+Todos los archivos tienen nombre de
+data_datosUsados_temporalizacion_variable
+
+datosUsados puede ser:
+all, capitales, asturias
+
+temporalizacion puede ser:
+meses, estaciones
+
+variable puede ser:
+temp, sol, lluvia, presion

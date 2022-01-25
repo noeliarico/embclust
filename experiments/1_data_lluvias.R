@@ -16,7 +16,13 @@ sol_prov <- results %>%
          day = day(fecha),
          month = month(fecha),
          fecha = NULL,
-         sol = as.numeric(str_replace(sol, ",", "."))
+         sol = as.numeric(str_replace(sol, ",", ".")),
+         dir = as.numeric(dir),
+         tmed = as.numeric(str_replace(tmed, ",", ".")),
+         tmin = as.numeric(str_replace(tmin, ",", ".")),
+         tmax = as.numeric(str_replace(tmax, ",", ".")),
+         velmedia = as.numeric(str_replace(velmedia, ",", ".")),
+         racha = as.numeric(str_replace(racha, ",", "."))
   ) %>%
   rename(estacion = nombre) %>%
   mutate(provincia = tolower(provincia),
