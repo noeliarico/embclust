@@ -35,7 +35,7 @@ ggplot(data_all_month_pres, aes(x=month)) +
   xlab("Month") +
   ylab("preserature range") +
   theme_bw() +
-  ggtitle("Rango de presión por mes teniendo en cuenta\n todas las seasones meteorológicas")
+  ggtitle("Rango de presión por mes teniendo en cuenta\n todas las estaciones meteorológicas")
 
 mins <- data_all_month_pres %>%
   pivot_wider(-max, names_from = month, names_prefix = "min",
@@ -69,7 +69,7 @@ ggplot(data_all_season_pres, aes(x=season)) +
   ylab("preserature range") +
   theme_bw() +
   theme(axis.text.x = element_text(angle = 90)) +
-  ggtitle("Rango de preseratura por season teniendo en cuenta\n todas las estaciones meteorológicas")
+  ggtitle("Rango de presion por season teniendo en cuenta\n todas las estaciones meteorológicas")
 
 mins <- data_all_season_pres %>%
   pivot_wider(-max, names_from = season, names_prefix = "min",

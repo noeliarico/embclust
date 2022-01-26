@@ -11,15 +11,15 @@ getSeason <- function(input.date){
   return(cuts)
 }
 
-path <- "experiments/aemet2021/all"
+path <- "experiments/aemet2021/capitales/data"
 files <- list.files(path, full.names = T)
 files <- files[str_detect(files, "json")]
 # Give the input file name to the function.
-meteo <- lapply(files, fromJSON)
-meteo <- bind_rows(meteo)
-meteo <- meteo %>% as_tibble()
+meteo_capitales <- lapply(files, fromJSON)
+meteo_capitales <- bind_rows(meteo_capitales)
+meteo_capitales <- meteo_capitales %>% as_tibble()
 
-meteo <- meteo %>%
+meteo_capitales <- meteo_capitales %>%
   as_tibble() %>%
   mutate(fecha = as_date(fecha),
          year = year(fecha),
@@ -49,29 +49,30 @@ meteo <- meteo %>%
          provincia = str_replace(provincia, "sta. cruz de tenerife", "santa cruz de tenerife"),
          provincia = as.factor(provincia)
   )
-meteo
+meteo_capitales
 
 # Mirar cuantas seasones hay por comunidad autonoma
-print(meteo %>%
+print(meteo_capitales %>%
   as_tibble() %>%
   select(nombre, provincia) %>%
   distinct() %>%
   group_by(provincia) %>%
   count(), n = 52)
 
-print(meteo %>%
+print(meteo_capitales %>%
         as_tibble() %>%
         group_by(provincia, nombre, season) %>%
         count() %>%
         pivot_wider(names_from = season, values_from = n),
       n = 246)
 
-glimpse(meteo)
+glimpse(meteo_capitales)
 
 # Para la normalización luego
 n <- function(x, mi, ma) {
   return((x-mi)/(ma-mi))
 }
 
-data_provinces <- meteo %>% select(provincia) %>% distinct() %>% arrange(provincia) %>%
+data_provinces <- meteo_capitales %>% select(provincia) %>% distinct() %>% arrange(provincia) %>%
   pull(provincia)
+

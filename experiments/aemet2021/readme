@@ -15,3 +15,14 @@ meses, estaciones
 
 variable puede ser:
 temp, sol, lluvia, presion
+
+
+SOL:
+Utilizando todos los datos:
+data_all_sol (provincia, nombre, month, season, sol, solN)
+data_all_month_sol (provincia, month, min, max)
+data_all_season_sol (provincia, season, min, max)
+data_all_month_sol_dist (cols provinvia y min y max de cada mes. Una fila por provincia)
+data_all_month_sol_dist_variables (sin provincia)
+data_all_season_sol_dist (provincia, minInvierno, maxInvierno, minPrimavera, maxPrimavera, minVerano, maxVerano)
+data_all_season_sol_dist_variables (sin provincia)

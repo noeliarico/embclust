@@ -7,13 +7,12 @@ data_all_sol <- data_all_sol %>%
 # Min and max solerature for normalization
 the_min <- min(data_all_sol$sol)
 the_max <- max(data_all_sol$sol)
-
-sol_prov <- sol_prov %>% mutate(
+data_all_sol <- data_all_sol %>% mutate(
   solN = n(sol, the_min, the_max),
-) %>% filter(year == 2021) %>% mutate(year = NULL)
+)
 
 # Check enough data
-print(sol_prov %>%
+print(data_all_sol %>%
         group_by(provincia, month) %>% count() %>%
         pivot_wider(names_from = month, values_from = n), n = 52)
 
@@ -37,7 +36,7 @@ ggplot(data_all_month_sol, aes(x=month)) +
   xlab("Month") +
   ylab("solerature range") +
   theme_bw() +
-  ggtitle("Rango de soleratura por mes teniendo en cuenta\n todas las seasones meteorológicas")
+  ggtitle("Rango de randiación solar por mes teniendo en cuenta\n todas las estaciones meteorológicas")
 
 mins <- data_all_month_sol %>%
   pivot_wider(-max, names_from = month, names_prefix = "min",
@@ -71,7 +70,7 @@ ggplot(data_all_season_sol, aes(x=season)) +
   ylab("solerature range") +
   theme_bw() +
   theme(axis.text.x = element_text(angle = 90)) +
-  ggtitle("Rango de soleratura por season teniendo en cuenta\n todas las estaciones meteorológicas")
+  ggtitle("Rango de randiación solar por season teniendo en cuenta\n todas las estaciones meteorológicas")
 
 mins <- data_all_season_sol %>%
   pivot_wider(-max, names_from = season, names_prefix = "min",
