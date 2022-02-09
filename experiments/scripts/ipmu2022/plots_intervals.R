@@ -71,3 +71,6 @@ intervals <- ggplot(to_plot_intervals %>%
   xlab("Intervals")
 
 intervals + sims
+
+
+
