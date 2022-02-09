@@ -31,7 +31,7 @@ test_that("Similariy matrix", {
                              v3L = c(.2,.1,.8),
                              v3R = c(.3,.4,.9)
                            ))
-  pretty_print_interval_data(data)
+
 
   #width
   sim_emb_bt_two_obj(as.numeric(data[1,]), as.numeric(data[2,]), sim_w)
@@ -440,4 +440,75 @@ test_that("Similariy matrix", {
 
  })
 
+################################################################################
+################################################################################
+
+test_that("Example for paper", {
+
+  # Define the data
+  data <- tibble::tribble(~v1L,~v1R,~v2L,~v2R)
+  data <- dplyr::bind_rows(data,
+                           tibble::tibble(
+                             v1L = c(4,  6 , 7,  -1, 3,  2),
+                             v1R = c(15, 12, 23,  4, 18, 10),
+                             v2L = c(16, 0 , 15, 40, 32, 11),
+                             v2R = c(20, 3 , 17, 50, 35, 22),
+                           ))
+  pretty_print_interval_data(data, names = 1:nrow(data))
+
+  # Normalize
+  data <- data %>%
+    mutate(v1L = (v1L+1)/(23+1),
+           v1R = (v1R+1)/(23+1),
+           v2L = v2L/50,
+           v2R = v2R/50)
+  pretty_print_interval_data(data, names = 1:nrow(data))
+
+  # Matrix of temperature
+  # First row
+  sim_emb_bt_two_obj(data[1, 1:2], data[2, 1:2], sim_w, mean)
+  sim_emb_bt_two_obj(data[1, 1:2], data[3, 1:2], sim_w, mean)
+  sim_emb_bt_two_obj(data[1, 1:2], data[4, 1:2], sim_w, mean)
+  sim_emb_bt_two_obj(data[1, 1:2], data[5, 1:2], sim_w, mean)
+  sim_emb_bt_two_obj(data[1, 1:2], data[6, 1:2], sim_w, mean)
+  # Second row
+  sim_emb_bt_two_obj(data[2, 1:2], data[3, 1:2], sim_w, mean)
+  sim_emb_bt_two_obj(data[2, 1:2], data[4, 1:2], sim_w, mean)
+  sim_emb_bt_two_obj(data[2, 1:2], data[5, 1:2], sim_w, mean)
+  sim_emb_bt_two_obj(data[2, 1:2], data[6, 1:2], sim_w, mean)
+  # Third row
+  sim_emb_bt_two_obj(data[3, 1:2], data[4, 1:2], sim_w, mean)
+  sim_emb_bt_two_obj(data[3, 1:2], data[5, 1:2], sim_w, mean)
+  sim_emb_bt_two_obj(data[3, 1:2], data[6, 1:2], sim_w, mean)
+  # Fourth row
+  sim_emb_bt_two_obj(data[4, 1:2], data[5, 1:2], sim_w, mean)
+  sim_emb_bt_two_obj(data[4, 1:2], data[6, 1:2], sim_w, mean)
+  # Fifth row
+  sim_emb_bt_two_obj(data[5, 1:2], data[6, 1:2], sim_w, mean)
+
+  # Matrix of rain
+  # First row
+  sim_emb_bt_two_obj(data[1, 3:4], data[2, 3:4], sim_w, mean)
+  sim_emb_bt_two_obj(data[1, 3:4], data[3, 3:4], sim_w, mean)
+  sim_emb_bt_two_obj(data[1, 3:4], data[4, 3:4], sim_w, mean)
+  sim_emb_bt_two_obj(data[1, 3:4], data[5, 3:4], sim_w, mean)
+  sim_emb_bt_two_obj(data[1, 3:4], data[6, 3:4], sim_w, mean)
+  # Second row
+  sim_emb_bt_two_obj(data[2, 3:4], data[3, 3:4], sim_w, mean)
+  sim_emb_bt_two_obj(data[2, 3:4], data[4, 3:4], sim_w, mean)
+  sim_emb_bt_two_obj(data[2, 3:4], data[5, 3:4], sim_w, mean)
+  sim_emb_bt_two_obj(data[2, 3:4], data[6, 3:4], sim_w, mean)
+  # Third row
+  sim_emb_bt_two_obj(data[3, 3:4], data[4, 3:4], sim_w, mean)
+  sim_emb_bt_two_obj(data[3, 3:4], data[5, 3:4], sim_w, mean)
+  sim_emb_bt_two_obj(data[3, 3:4], data[6, 3:4], sim_w, mean)
+  # Fourth row
+  sim_emb_bt_two_obj(data[4, 3:4], data[5, 3:4], sim_w, mean)
+  sim_emb_bt_two_obj(data[4, 3:4], data[6, 3:4], sim_w, mean)
+  # Fifth row
+  sim_emb_bt_two_obj(data[5, 3:4], data[6, 3:4], sim_w, mean)
+
+
+
+})
 

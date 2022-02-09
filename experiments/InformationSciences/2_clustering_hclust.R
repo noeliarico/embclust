@@ -1,5 +1,4 @@
-#data_variables <- data_capitales_month_temp_dist_variables
-data_variables <- data_all_month_temp_dist_variables
+data_variables <- meteo_is_intervals_dist_variables
 k <- 5
 
 d <- dist
@@ -14,17 +13,20 @@ attr(d, "Labels") <- data_provinces
 hc <- hclust(d, method = "single")
 clusters <- data.frame(cluster = factor(cutree(hc, k))) %>%
   rownames_to_column("provincia")
-mapa_single_max <- plot_mapa_clusters(clusters, "Single")
+mapa_single_max <- plot_mapa_clusters(clusters, "Single") +
+  theme(text = element_text(family = "Gulliver"))
 
 hc <- hclust(d, method = "complete")
 clusters <- data.frame(cluster = factor(cutree(hc, k))) %>%
   rownames_to_column("provincia")
-mapa_complete_max <- plot_mapa_clusters(clusters, "Complete")
+mapa_complete_max <- plot_mapa_clusters(clusters, "Complete") +
+  theme(text = element_text(family = "Gulliver"))
 
 hc <- hclust(d, method = "average")
 clusters <- data.frame(cluster = factor(cutree(hc, k))) %>%
   rownames_to_column("provincia")
-mapa_average_max <- plot_mapa_clusters(clusters, "Average")
+mapa_average_max <- plot_mapa_clusters(clusters, "Average") +
+  theme(text = element_text(family = "Gulliver"))
 
 mapa_maxs <- mapa_single_max / mapa_complete_max / mapa_average_max
 
@@ -37,27 +39,35 @@ attr(d, "Labels") <- data_provinces
 hc <- hclust(d, method = "single")
 clusters <- data.frame(cluster = factor(cutree(hc, k))) %>%
   rownames_to_column("provincia")
-mapa_single_min <- plot_mapa_clusters(clusters, "Single")
+mapa_single_min <- plot_mapa_clusters(clusters, "Single") +
+  theme(text = element_text(family = "Gulliver"))
 
 hc <- hclust(d, method = "complete")
 clusters <- data.frame(cluster = factor(cutree(hc, k))) %>%
   rownames_to_column("provincia")
-mapa_complete_min <- plot_mapa_clusters(clusters, "Complete")
+mapa_complete_min <- plot_mapa_clusters(clusters, "Complete") +
+  theme(text = element_text(family = "Gulliver"))
 
 hc <- hclust(d, method = "average")
 clusters <- data.frame(cluster = factor(cutree(hc, k))) %>%
   rownames_to_column("provincia")
-mapa_average_min <- plot_mapa_clusters(clusters, "Average")
+mapa_average_min <- plot_mapa_clusters(clusters, "Average") +
+  theme(text = element_text(family = "Gulliver"))
 
 mapa_mins <- mapa_single_min / mapa_complete_min / mapa_average_min
 
-# Maximum --------------------------------------------------------------------
+# All --------------------------------------------------------------------------
 
-(mapa_single_min | mapa_complete_min | mapa_average_min |
-   mapa_single_max | mapa_complete_max | mapa_average_max ) +
+p <- (mapa_single_min | mapa_complete_min | mapa_average_min |
+      mapa_single_max | mapa_complete_max | mapa_average_max ) +
   plot_layout(ncol = 2, nrow = 3, byrow = F) +
-  plot_annotation("Minimum temp (left)                                    Maximum temp (right)")
+  plot_annotation(title = "Minimum temprature                                  Maximum temperature",
+                  theme = theme(text = element_text(family = "Gulliver"),
+                                plot.title = element_text(margin = margin(t = 0.5, b = 0.5, unit = "cm")))) +
+  theme(plot.margin = margin(l = 0.5, r = 0.5, unit = "cm"))
 
-# 7.03 x 8.13
+ggsave("mapas_hclust.png", p, width = 7, height = 8, units = "in", dpi = 1000)
+
+# 7 x 8
 
 # mapas_emb_5_avg

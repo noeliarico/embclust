@@ -1,0 +1,52 @@
+alava
+albacete
+alicante
+almeria
+asturias
+avila
+badajoz
+barcelona
+burgos
+caceres
+cadiz
+cantabria
+castellon
+ceuta
+ciudad real
+cordoba
+cuenca
+gerona
+granada
+guadalajara
+guipuzcoa
+huelva
+huesca
+islas baleares
+jaen
+la coruna
+la rioja
+las palmas
+leon
+lleida
+lugo
+madrid
+malaga
+melilla
+murcia
+navarra
+orense
+palencia
+pontevedra
+salamanca
+santa cruz de tenerife
+segovia
+sevilla
+soria
+tarragona
+teruel
+toledo
+valencia
+valladolid
+vizcaya
+zamora
+zaragoza
