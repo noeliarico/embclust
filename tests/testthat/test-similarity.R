@@ -451,8 +451,8 @@ test_that("Example for paper", {
                            tibble::tibble(
                              v1L = c(4,  6 , 7,  -1, 3,  2),
                              v1R = c(15, 12, 23,  4, 18, 10),
-                             v2L = c(16, 0 , 15, 40, 32, 11),
-                             v2R = c(20, 3 , 17, 50, 35, 22),
+                             v2L = c(16, 0 , 7, 19, 4 , 11),
+                             v2R = c(21, 8 , 30, 50, 21, 25),
                            ))
   pretty_print_interval_data(data, names = 1:nrow(data))
 
@@ -466,49 +466,53 @@ test_that("Example for paper", {
 
   # Matrix of temperature
   # First row
-  sim_emb_bt_two_obj(data[1, 1:2], data[2, 1:2], sim_w, mean)
-  sim_emb_bt_two_obj(data[1, 1:2], data[3, 1:2], sim_w, mean)
-  sim_emb_bt_two_obj(data[1, 1:2], data[4, 1:2], sim_w, mean)
-  sim_emb_bt_two_obj(data[1, 1:2], data[5, 1:2], sim_w, mean)
-  sim_emb_bt_two_obj(data[1, 1:2], data[6, 1:2], sim_w, mean)
+  sim_emb_bt_two_obj(data[1, 1:2] %>% as.numeric(), data[2, 1:2] %>% as.numeric(), sim_w, mean)
+  sim_emb_bt_two_obj(data[1, 1:2] %>% as.numeric(), data[3, 1:2] %>% as.numeric(), sim_w, mean)
+  sim_emb_bt_two_obj(data[1, 1:2] %>% as.numeric(), data[4, 1:2] %>% as.numeric(), sim_w, mean)
+  sim_emb_bt_two_obj(data[1, 1:2] %>% as.numeric(), data[5, 1:2] %>% as.numeric(), sim_w, mean)
+  sim_emb_bt_two_obj(data[1, 1:2] %>% as.numeric(), data[6, 1:2] %>% as.numeric(), sim_w, mean)
   # Second row
-  sim_emb_bt_two_obj(data[2, 1:2], data[3, 1:2], sim_w, mean)
-  sim_emb_bt_two_obj(data[2, 1:2], data[4, 1:2], sim_w, mean)
-  sim_emb_bt_two_obj(data[2, 1:2], data[5, 1:2], sim_w, mean)
-  sim_emb_bt_two_obj(data[2, 1:2], data[6, 1:2], sim_w, mean)
+  sim_emb_bt_two_obj(data[2, 1:2] %>% as.numeric(), data[3, 1:2] %>% as.numeric(), sim_w, mean)
+  sim_emb_bt_two_obj(data[2, 1:2] %>% as.numeric(), data[4, 1:2] %>% as.numeric(), sim_w, mean)
+  sim_emb_bt_two_obj(data[2, 1:2] %>% as.numeric(), data[5, 1:2] %>% as.numeric(), sim_w, mean)
+  sim_emb_bt_two_obj(data[2, 1:2] %>% as.numeric(), data[6, 1:2] %>% as.numeric(), sim_w, mean)
   # Third row
-  sim_emb_bt_two_obj(data[3, 1:2], data[4, 1:2], sim_w, mean)
-  sim_emb_bt_two_obj(data[3, 1:2], data[5, 1:2], sim_w, mean)
-  sim_emb_bt_two_obj(data[3, 1:2], data[6, 1:2], sim_w, mean)
+  sim_emb_bt_two_obj(data[3, 1:2] %>% as.numeric(), data[4, 1:2] %>% as.numeric(), sim_w, mean)
+  sim_emb_bt_two_obj(data[3, 1:2] %>% as.numeric(), data[5, 1:2] %>% as.numeric(), sim_w, mean)
+  sim_emb_bt_two_obj(data[3, 1:2] %>% as.numeric(), data[6, 1:2] %>% as.numeric(), sim_w, mean)
   # Fourth row
-  sim_emb_bt_two_obj(data[4, 1:2], data[5, 1:2], sim_w, mean)
-  sim_emb_bt_two_obj(data[4, 1:2], data[6, 1:2], sim_w, mean)
+  sim_emb_bt_two_obj(data[4, 1:2] %>% as.numeric(), data[5, 1:2] %>% as.numeric(), sim_w, mean)
+  sim_emb_bt_two_obj(data[4, 1:2] %>% as.numeric(), data[6, 1:2] %>% as.numeric(), sim_w, mean)
   # Fifth row
-  sim_emb_bt_two_obj(data[5, 1:2], data[6, 1:2], sim_w, mean)
+  sim_emb_bt_two_obj(data[5, 1:2] %>% as.numeric(), data[6, 1:2] %>% as.numeric(), sim_w, mean)
 
   # Matrix of rain
   # First row
-  sim_emb_bt_two_obj(data[1, 3:4], data[2, 3:4], sim_w, mean)
-  sim_emb_bt_two_obj(data[1, 3:4], data[3, 3:4], sim_w, mean)
-  sim_emb_bt_two_obj(data[1, 3:4], data[4, 3:4], sim_w, mean)
-  sim_emb_bt_two_obj(data[1, 3:4], data[5, 3:4], sim_w, mean)
-  sim_emb_bt_two_obj(data[1, 3:4], data[6, 3:4], sim_w, mean)
+  sim_emb_bt_two_obj(data[1, 3:4] %>% as.numeric(), data[2, 3:4] %>% as.numeric(), sim_w, mean)
+  sim_emb_bt_two_obj(data[1, 3:4] %>% as.numeric(), data[3, 3:4] %>% as.numeric(), sim_w, mean)
+  sim_emb_bt_two_obj(data[1, 3:4] %>% as.numeric(), data[4, 3:4] %>% as.numeric(), sim_w, mean)
+  sim_emb_bt_two_obj(data[1, 3:4] %>% as.numeric(), data[5, 3:4] %>% as.numeric(), sim_w, mean)
+  sim_emb_bt_two_obj(data[1, 3:4] %>% as.numeric(), data[6, 3:4] %>% as.numeric(), sim_w, mean)
   # Second row
-  sim_emb_bt_two_obj(data[2, 3:4], data[3, 3:4], sim_w, mean)
-  sim_emb_bt_two_obj(data[2, 3:4], data[4, 3:4], sim_w, mean)
-  sim_emb_bt_two_obj(data[2, 3:4], data[5, 3:4], sim_w, mean)
-  sim_emb_bt_two_obj(data[2, 3:4], data[6, 3:4], sim_w, mean)
+  sim_emb_bt_two_obj(data[2, 3:4] %>% as.numeric(), data[3, 3:4] %>% as.numeric(), sim_w, mean)
+  sim_emb_bt_two_obj(data[2, 3:4] %>% as.numeric(), data[4, 3:4] %>% as.numeric(), sim_w, mean)
+  sim_emb_bt_two_obj(data[2, 3:4] %>% as.numeric(), data[5, 3:4] %>% as.numeric(), sim_w, mean)
+  sim_emb_bt_two_obj(data[2, 3:4] %>% as.numeric(), data[6, 3:4] %>% as.numeric(), sim_w, mean)
   # Third row
-  sim_emb_bt_two_obj(data[3, 3:4], data[4, 3:4], sim_w, mean)
-  sim_emb_bt_two_obj(data[3, 3:4], data[5, 3:4], sim_w, mean)
-  sim_emb_bt_two_obj(data[3, 3:4], data[6, 3:4], sim_w, mean)
+  sim_emb_bt_two_obj(data[3, 3:4] %>% as.numeric(), data[4, 3:4] %>% as.numeric(), sim_w, mean)
+  sim_emb_bt_two_obj(data[3, 3:4] %>% as.numeric(), data[5, 3:4] %>% as.numeric(), sim_w, mean)
+  sim_emb_bt_two_obj(data[3, 3:4] %>% as.numeric(), data[6, 3:4] %>% as.numeric(), sim_w, mean)
   # Fourth row
-  sim_emb_bt_two_obj(data[4, 3:4], data[5, 3:4], sim_w, mean)
-  sim_emb_bt_two_obj(data[4, 3:4], data[6, 3:4], sim_w, mean)
+  sim_emb_bt_two_obj(data[4, 3:4] %>% as.numeric(), data[5, 3:4] %>% as.numeric(), sim_w, mean)
+  sim_emb_bt_two_obj(data[4, 3:4] %>% as.numeric(), data[6, 3:4] %>% as.numeric(), sim_w, mean)
   # Fifth row
-  sim_emb_bt_two_obj(data[5, 3:4], data[6, 3:4], sim_w, mean)
+  sim_emb_bt_two_obj(data[5, 3:4] %>% as.numeric(), data[6, 3:4] %>% as.numeric(), sim_w, mean)
 
-
+  m <- sim_emb_matrix(data, sim_w, mean)
+  m <- 1-m
+  plot(hclust(m, method = "single"))
+  plot(hclust(m, method = "complete"))
+  plot(hclust(m, method = "average"))
 
 })
 

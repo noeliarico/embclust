@@ -1,32 +1,16 @@
 library(lubridate)
 
-horas <- read_delim("experiments/scripts/ipmu2022/horas", delim = ";",
+horas <- read_delim("experiments/scripts/ipmu2022/horas_enero", delim = ";",
                     skip = 1,
                     col_names = c("ciudad", "sunrise", "sunset", "daylight"))
+horas <- readxl::read_excel("experiments/scripts/ipmu2022/horas_capitales.xlsx",
+                    col_names = c("país", "ciudad", "sunrise", "sunset"))
+
+
 horas <- horas %>%
   mutate(ciudad = str_remove_all(ciudad, "\t| "),
          ciudad = str_replace_all(ciudad, "_", " "),
-         ciudad = as.factor(ciudad)) %>%
-  mutate(provincia = c("islas baleares",
-                       "barcelona",
-                       "barcelona",
-                       "valencia",
-                       "alicante",
-                       "alicante",
-                       "zaragoza",
-                       "murcia",
-                       "vitoria",
-                       "alava",
-                       "granada",
-                       "madrid",
-                       "malaga",
-                       "valladolid",
-                       "cordoba",
-                       "asturias",
-                       "sevilla",
-                       "a coruna",
-                       "vigo",
-                       "las palmas"))
+         ciudad = as.factor(ciudad))
 
 to_minutes <- function(time) {
   return(hour(time)*60 + minute(time))
@@ -34,24 +18,100 @@ to_minutes <- function(time) {
 
 horas <- horas %>%
   mutate(sunrise = to_minutes(sunrise),
-         sunset = to_minutes(sunset),
-         daylight = to_minutes(daylight))
+         sunset = to_minutes(sunset))
 
 ggplot(horas, aes(x = 0, y = ciudad)) +
   geom_segment(aes(x = sunrise, xend = sunset, yend = ciudad)) +
   geom_point(aes(x = sunrise)) +
   geom_point(aes(x = sunset)) +
-  theme_bw()
+  geom_text(aes(x = sunrise, label = sunrise), nudge_y = 0.5) +
+  geom_text(aes(x = sunset, label = sunset), nudge_y = 0.5) +
+  theme_bw() +
+  theme()
+
+# mirar intersección -----------------------------------------------------------
+
+perc_inter <- function(a, b) {
+  # left <- min(a[1], b[1])
+  # right <- max(a[2], b[2])
+  # inter <- embclust::intersection(a, b, interval = T)
+  # return( (inter[2]-inter[1]) / (right-left) )
+
+  #
+  inter <- embclust::intersection(a, b, interval = T)
+  return( inter[2]-inter[1] )
+
+}
+
+inter <- lapply(1:(nrow(horas)-1), function(i) {
+            a <- horas[i,2:3] %>% as.numeric()
+            res <- sapply((i+1):nrow(horas), function(j) {
+              b <- horas[j,2:3] %>% as.numeric()
+              p <- perc_inter(a, b)
+              p
+            })
+            res <- tibble(c1 = horas[i,] %>% pull(ciudad),
+                          c2 = horas[(i+1):nrow(horas),] %>% pull(ciudad),
+                          pi = res)
+            res
+          }) %>%
+  bind_rows()
+
+p_inter <- ggplot(inter, aes(c1, c2, fill = pi)) +
+  geom_tile(color = "black") +
+  geom_text(aes(label = round(pi, 3)), color = "white") +
+  #scale_fill_manual(values = c("white", "black")) +
+  theme_classic() +
+  theme(axis.text.x = element_text(angle = 30, hjust = 1))
+
+# mirar si está dentro ---------------------------------------------------------
+
+is_inside <- function(a, b) {
+  # true if b inside a
+  return( (a[1] <= b[1]) && (b[2] <= a[2]) )
+}
+
+inside <- lapply(1:(nrow(horas)-1), function(i) {
+              c1 <- horas[i,2:3] %>% as.numeric()
+              res <- sapply((i+1):nrow(horas), function(j) {
+                c2 <- horas[j,2:3] %>% as.numeric()
+                c(is_inside(c2, c1), is_inside(c1, c2))
+              })
+              res <- tibble(c1 = horas[i,] %>% pull(ciudad),
+                            c2 = horas[(i+1):nrow(horas),] %>% pull(ciudad),
+                            c1_inside_c2 = res[1,],
+                            c2_inside_c1 = res[2,])
+              res
+            }) %>%
+              bind_rows()
+
+inside2  <- inside %>%
+  select(c1, c2, c2_inside_c1) %>%
+  rename(value = c2_inside_c1) %>%
+  rename(c3 = c2) %>%
+  rename(c2 = c1) %>%
+  rename(c1 = c3) %>%
+  select(c1, c2, value)
+
+p_inside <- ggplot(inside %>%
+                     select(c1, c2, c1_inside_c2) %>%
+                     rename(value = c1_inside_c2) %>%
+         bind_rows(inside2),
+       aes(c2, c1, fill = value)) +
+  geom_tile(color = "black") +
+  scale_fill_manual(values = c("white", "black")) +
+  theme_classic() +
+  theme(axis.text.x = element_text(angle = 30, hjust = 1))
+
+p_inter + p_inside
 
 # normalize
 horas <- horas %>%
   mutate(sunrise = sunrise/(24*60),
-         sunset = sunset/(24*60),
-         daylight = daylight/(24*60))
-horas_dist <- as.data.frame(horas[, 2:3])
+         sunset = sunset/(24*60))
+horas_dist <- as.data.frame(horas[, 3:4])
 rownames(horas_dist) <- horas %>% pull("ciudad")
-horas_dist[,3] <- 0
-horas_dist[,4] <- 0
+
 
 
 horas_w <- sim_emb_matrix(horas_dist, sim_w, mean, dist = T)
@@ -78,7 +138,8 @@ library(ggplot2)
 
 create_matrix <- function(sim) {
 
-  horas <- horas %>% arrange(ciudad)
+  horas <- horas %>% arrange(ciudad) %>% select(ciudad, sunrise, sunset)
+  #horas <- horas[2:4]
   res <- lapply(1:(nrow(horas)-1), function(i) {
     a <- horas[i,2:3] %>% as.numeric()
     res <- sapply((i+1):nrow(horas), function(j) {
@@ -119,7 +180,7 @@ create_matrix <- function(sim) {
     scale_fill_gradient(low = "red",
                         high = "darkgreen",
                         na.value = NA,
-                        limits = c(0.85, 1)) +
+                        limits = c(0.4, 1)) +
     theme(axis.text.x = element_text(angle = 90, hjust = 0),
           axis.text.y = element_text(angle = 45),
           legend.position = "bottom")
@@ -133,8 +194,8 @@ create_matrix_dist <- function() {
   horas_dist <- as.matrix(dist(h))
   horas_dist <- 1 - horas_dist
   horas_dist[lower.tri(horas_dist, diag = T)] <- 0
-  colnames(horas_dist) <- horas %>% arrange(ciudad) %>% pull(ciudad)
-  rownames(horas_dist) <- horas %>% arrange(ciudad) %>% pull(ciudad)
+  #colnames(horas_dist) <- horas %>% arrange(ciudad) %>% pull(ciudad)
+  #rownames(horas_dist) <- horas %>% arrange(ciudad) %>% pull(ciudad)
   melted_horas <- melt(horas_dist) %>%
     filter(value != 0)
   ggplot(data = melted_horas , aes(x=Var1, y=Var2, fill=value)) +
@@ -217,3 +278,205 @@ create_ranking("dice", "max") +
   create_ranking("min", "max") +
   create_ranking("product", "max") +
   plot_layout(ncol = 5, guides = "collect")
+
+
+zaragoza <- horas[horas$ciudad == "Zaragoza", 2:3] %>% as.numeric()
+madrid <- horas[horas$ciudad == "Madrid", 2:3] %>% as.numeric()
+vitoria <- horas[horas$ciudad == "Vitoria", 2:3] %>% as.numeric()
+alicante <- horas[horas$ciudad == "Alicante", 2:3] %>% as.numeric()
+
+similarity(zaragoza, madrid, "dice")
+similarity(vitoria, alicante, "dice")
+
+similarity(zaragoza, madrid, "jaccard")
+similarity(vitoria, alicante, "jaccard")
+
+similarity(zaragoza, madrid, "mean")
+similarity(vitoria, alicante, "mean")
+
+
+#########
+
+horas <- horas %>% arrange(ciudad) %>% select(ciudad, sunrise, sunset)
+dice <- lapply(1:(nrow(horas)-1), function(i) {
+  a <- horas[i,2:3] %>% as.numeric()
+  res <- sapply((i+1):nrow(horas), function(j) {
+    b <- horas[j,2:3] %>% as.numeric()
+    s <- similarity(a, b, "dice")
+  })
+  res <- tibble(c1 = horas[i,] %>% pull(ciudad),
+                c2 = horas[(i+1):nrow(horas),] %>% pull(ciudad),
+                dice = res)
+  res
+}) %>%
+  bind_rows() %>%
+  pivot_wider(names_from = c2, values_from = dice)
+
+jaccard <- lapply(1:(nrow(horas)-1), function(i) {
+  a <- horas[i,2:3] %>% as.numeric()
+  res <- sapply((i+1):nrow(horas), function(j) {
+    b <- horas[j,2:3] %>% as.numeric()
+    s <- similarity(a, b, "jaccard")
+  })
+  res <- tibble(c1 = horas[i,] %>% pull(ciudad),
+                c2 = horas[(i+1):nrow(horas),] %>% pull(ciudad),
+                jaccard = res)
+  res
+}) %>%
+  bind_rows() %>%
+  pivot_wider(names_from = c2, values_from = jaccard)
+
+mean <- lapply(1:(nrow(horas)-1), function(i) {
+  a <- horas[i,2:3] %>% as.numeric()
+  res <- sapply((i+1):nrow(horas), function(j) {
+    b <- horas[j,2:3] %>% as.numeric()
+    s <- similarity(a, b, "mean")
+  })
+  res <- tibble(c1 = horas[i,] %>% pull(ciudad),
+                c2 = horas[(i+1):nrow(horas),] %>% pull(ciudad),
+                mean = res)
+  res
+}) %>%
+  bind_rows() %>%
+  pivot_wider(names_from = c2, values_from = mean)
+
+min <- lapply(1:(nrow(horas)-1), function(i) {
+  a <- horas[i,2:3] %>% as.numeric()
+  res <- sapply((i+1):nrow(horas), function(j) {
+    b <- horas[j,2:3] %>% as.numeric()
+    s <- similarity(a, b, "min")
+  })
+  res <- tibble(c1 = horas[i,] %>% pull(ciudad),
+                c2 = horas[(i+1):nrow(horas),] %>% pull(ciudad),
+                min = res)
+  res
+}) %>%
+  bind_rows() %>%
+  pivot_wider(names_from = c2, values_from = min)
+
+
+
+######
+
+mean <- lapply(1:(nrow(horas)-1), function(i) {
+  a <- horas[i,2:3] %>% as.numeric()
+  res <- sapply((i+1):nrow(horas), function(j) {
+    b <- horas[j,2:3] %>% as.numeric()
+    s <- similarity(a, b, "mean")
+  })
+  res <- tibble(c1 = horas[i,] %>% pull(ciudad),
+                c2 = horas[(i+1):nrow(horas),] %>% pull(ciudad),
+                value = res)
+  res
+}) %>%
+  bind_rows() %>%
+  mutate(pair = paste(c1, "-", c2),
+         c1 = NULL, c2 = NULL) %>%
+  select(pair, value) %>%
+  deframe()
+mean <- melt(outer(round(mean, 3), round(mean, 3), "==")) %>% mutate(sim = "mean")
+
+jaccard <- lapply(1:(nrow(horas)-1), function(i) {
+  a <- horas[i,2:3] %>% as.numeric()
+  res <- sapply((i+1):nrow(horas), function(j) {
+    b <- horas[j,2:3] %>% as.numeric()
+    s <- similarity(a, b, "jaccard")
+  })
+  res <- tibble(c1 = horas[i,] %>% pull(ciudad),
+                c2 = horas[(i+1):nrow(horas),] %>% pull(ciudad),
+                value = res)
+  res
+}) %>%
+  bind_rows() %>%
+  mutate(pair = paste(c1, "-", c2),
+         c1 = NULL, c2 = NULL) %>%
+  select(pair, value) %>%
+  deframe()
+jaccard <- melt(outer(round(jaccard, 3), round(jaccard, 3), "==")) %>% mutate(sim = "jaccard")
+
+
+dice <- lapply(1:(nrow(horas)-1), function(i) {
+  a <- horas[i,2:3] %>% as.numeric()
+  res <- sapply((i+1):nrow(horas), function(j) {
+    b <- horas[j,2:3] %>% as.numeric()
+    s <- similarity(a, b, "dice")
+  })
+  res <- tibble(c1 = horas[i,] %>% pull(ciudad),
+                c2 = horas[(i+1):nrow(horas),] %>% pull(ciudad),
+                value = res)
+  res
+}) %>%
+  bind_rows() %>%
+  mutate(pair = paste(c1, "-", c2),
+         c1 = NULL, c2 = NULL) %>%
+  select(pair, value) %>%
+  deframe()
+dice <- melt(outer(round(dice, 3), round(dice, 3), "==")) %>% mutate(sim = "dice")
+
+min <- lapply(1:(nrow(horas)-1), function(i) {
+  a <- horas[i,2:3] %>% as.numeric()
+  res <- sapply((i+1):nrow(horas), function(j) {
+    b <- horas[j,2:3] %>% as.numeric()
+    s <- similarity(a, b, "min")
+  })
+  res <- tibble(c1 = horas[i,] %>% pull(ciudad),
+                c2 = horas[(i+1):nrow(horas),] %>% pull(ciudad),
+                value = res)
+  res
+}) %>%
+  bind_rows() %>%
+  mutate(pair = paste(c1, "-", c2),
+         c1 = NULL, c2 = NULL) %>%
+  select(pair, value) %>%
+  deframe()
+min <- melt(outer(round(min, 3), round(min, 3), "==")) %>% mutate(sim = "min")
+
+
+comparative <- bind_rows(mean, min) %>%
+  as_tibble() %>%
+  filter(Var1 != Var2) %>%
+  pivot_wider(names_from = sim, values_from = value)
+
+comparative %>% filter(min, !mean)
+
+get_values <- function(comparative) {
+r <- tibble()
+  for(i in 1:nrow(comparative)) {
+  x <- comparative %>% slice(i)
+  v1 <- x %>% pull(Var1)
+  v2 <- x %>% pull(Var2)
+  v11 <- str_split(v1, " - ", simplify = T)[1]
+  v21 <- str_split(v2, " - ", simplify = T)[1]
+  v12 <- str_split(v1, " - ", simplify = T)[2]
+  v22 <- str_split(v2, " - ", simplify = T)[2]
+  r <- bind_rows(r,
+         bind_rows(
+         # dice1 = dice %>% filter(c1 == v11 & c2 == v12),
+         # dice2 = dice %>% filter(c1 == v21 & c2 == v22),
+         # jaccard1 = jaccard %>% filter(c1 == v11 & c2 == v12),
+         # jaccard2 = jaccard %>% filter(c1 == v21 & c2 == v22),
+         mean1 = mean %>% filter(c1 == v11 & c2 == v12),
+         mean2 = mean %>% filter(c1 == v21 & c2 == v22),
+         min1 = min %>% filter(c1 == v11 & c2 == v12),
+         min2 = min %>% filter(c1 == v21 & c2 == v22),
+         )
+  )
+  }
+r
+}
+r <- get_values(comparative %>% filter(min, !mean))
+r <- r %>% pivot_longer(-c("c1", "c2")) %>% drop_na() %>% distinct() %>% pivot_wider(names_from = name, values_from = value)
+r <- r %>% mutate(name = paste(c1, "-", c2), c1 = NULL, c2 = NULL)
+r <- comparative %>%
+  filter(min, !mean) %>%
+  select(Var1, Var2) %>%
+  inner_join(r, by = c("Var1" = "name")) %>%
+  # rename(dice1 = dice) %>%
+  # rename(jaccard1 = jaccard) %>%
+  rename(mean1 = mean) %>%
+  rename(min1 = min) %>%
+  inner_join(r, by = c("Var2" = "name")) %>%
+  # rename(dice2 = dice) %>%
+  # rename(jaccard2 = jaccard) %>%
+  rename(mean2 = mean) %>%
+  rename(min2 = min)
