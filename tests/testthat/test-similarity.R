@@ -449,20 +449,26 @@ test_that("Example for paper", {
   data <- tibble::tribble(~v1L,~v1R,~v2L,~v2R)
   data <- dplyr::bind_rows(data,
                            tibble::tibble(
-                             v1L = c(4,  6 , 7,  -1, 3,  2),
-                             v1R = c(15, 12, 23,  4, 18, 10),
-                             v2L = c(16, 0 , 7, 19, 4 , 11),
+                             v1L = c(5,  6 , 7,  -1, 4,  2),
+                             v1R = c(11, 12, 16,  6, 19, 11),
+                             v2L = c(16, 0 , 7, 19, 4 , 13),
                              v2R = c(21, 8 , 30, 50, 21, 25),
                            ))
-  pretty_print_interval_data(data, names = 1:nrow(data))
+  # pretty_print_interval_data(data, names = 1:nrow(data))
 
   # Normalize
   data <- data %>%
-    mutate(v1L = (v1L+1)/(23+1),
-           v1R = (v1R+1)/(23+1),
+    mutate(v1L = (v1L+1)/(19+1),
+           v1R = (v1R+1)/(19+1),
            v2L = v2L/50,
            v2R = v2R/50)
-  pretty_print_interval_data(data, names = 1:nrow(data))
+  # pretty_print_interval_data(data, names = 1:nrow(data))
+
+  m <- sim_emb_matrix(data, sim_w, mean)
+  m <- 1-m
+  plot(hclust(m, method = "single"))
+  plot(hclust(m, method = "complete"))
+  plot(hclust(m, method = "average"))
 
   # Matrix of temperature
   # First row
@@ -508,11 +514,7 @@ test_that("Example for paper", {
   # Fifth row
   sim_emb_bt_two_obj(data[5, 3:4] %>% as.numeric(), data[6, 3:4] %>% as.numeric(), sim_w, mean)
 
-  m <- sim_emb_matrix(data, sim_w, mean)
-  m <- 1-m
-  plot(hclust(m, method = "single"))
-  plot(hclust(m, method = "complete"))
-  plot(hclust(m, method = "average"))
+
 
 })
 

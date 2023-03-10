@@ -13,22 +13,6 @@ sim_emb <- function(emb, a, b) {
   return((emb(a,b) + emb(b,a))/2)
 }
 
-#' Similarity width
-#'
-#' @param emb
-#' @param a
-#' @param b
-#'
-#' @return
-#' @export
-#'
-#' @rdname sim_emb
-#' @examples
-sim_w <- function(a, b) {
-  sim_emb(emb_lk, a, b)
-}
-
-
 #' @export
 #' @rdname sim_emb
 sim_w <- function(a, b) {

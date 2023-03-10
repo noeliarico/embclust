@@ -229,12 +229,12 @@ emb_rs <- function(a,b){
 
 # Parametrized -----------------------------------------------------------------
 
-#' Rescher embedding function
+#' Similarity functions
 #'
 #' @param a interval
 #' @param b interval
 #'
-#' @return Embedding value
+#' @return Value of the similarity
 #' @export
 similarity <- function(a, b, method){
   i <- intersection(a,b, interval = TRUE)
@@ -252,5 +252,8 @@ similarity <- function(a, b, method){
   }
   if(method == "product") {
     return( (width(i)/width(a)) * (width(i)/width(b)) )
+  }
+  if(method == "gmean") {
+    return( width(i) / sqrt(width(a) * width(b)) )
   }
 }

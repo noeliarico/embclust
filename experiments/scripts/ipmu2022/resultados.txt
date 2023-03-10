@@ -1,0 +1,75 @@
+[38;5;246m# A tibble: 72 × 8[39m
+   Var1                                    Var2                                    dice1 jaccard1 mean1 dice2 jaccard2 mean2
+   [3m[38;5;246m<chr>[39m[23m                                   [3m[38;5;246m<chr>[39m[23m                                   [3m[38;5;246m<dbl>[39m[23m    [3m[38;5;246m<dbl>[39m[23m [3m[38;5;246m<dbl>[39m[23m [3m[38;5;246m<dbl>[39m[23m    [3m[38;5;246m<dbl>[39m[23m [3m[38;5;246m<dbl>[39m[23m
+[38;5;250m 1[39m A Coruña - Alicante                     Barcelona - Gijón                       0.946    0.898 0.947 0.946    0.898 0.946
+[38;5;250m 2[39m A Coruña - Elche                        A Coruña - Las Palmas de Gran Canaria   0.948    0.901 0.948 0.948    0.901 0.950
+[38;5;250m 3[39m A Coruña - Elche                        Gijón - Las Palmas de Gran Canaria      0.948    0.901 0.948 0.948    0.901 0.950
+[38;5;250m 4[39m A Coruña - Las Palmas de Gran Canaria   A Coruña - Elche                        0.948    0.901 0.950 0.948    0.901 0.948
+[38;5;250m 5[39m A Coruña - Málaga                       Elche - Valladolid                      0.973    0.948 0.974 0.973    0.948 0.973
+[38;5;250m 6[39m Alicante - Gijón                        Las Palmas de Gran Canaria - Palma      0.965    0.932 0.965 0.965    0.932 0.966
+[38;5;250m 7[39m Alicante - Gijón                        Las Palmas de Gran Canaria - Sevilla    0.965    0.932 0.965 0.965    0.932 0.966
+[38;5;250m 8[39m Alicante - Gijón                        Las Palmas de Gran Canaria - Valencia   0.965    0.932 0.965 0.965    0.932 0.966
+[38;5;250m 9[39m Alicante - Granada                      Gijón - Vitoria                         0.979    0.960 0.980 0.979    0.960 0.979
+[38;5;250m10[39m Alicante - Granada                      Granada - Valencia                      0.979    0.960 0.980 0.979    0.960 0.979
+[38;5;250m11[39m Alicante - L'Hospitalet de Llobregat    Sevilla - Valladolid                    0.983    0.967 0.983 0.983    0.967 0.984
+[38;5;250m12[39m Alicante - Madrid                       Barcelona - Murcia                      0.978    0.958 0.978 0.978    0.958 0.979
+[38;5;250m13[39m Alicante - Madrid                       Elche - Palma                           0.978    0.958 0.978 0.978    0.958 0.979
+[38;5;250m14[39m Alicante - Málaga                       Gijón - Granada                         0.974    0.949 0.974 0.974    0.949 0.975
+[38;5;250m15[39m Barcelona - Gijón                       A Coruña - Alicante                     0.946    0.898 0.946 0.946    0.898 0.947
+[38;5;250m16[39m Barcelona - Gijón                       Elche - Vigo                            0.946    0.898 0.946 0.946    0.898 0.947
+[38;5;250m17[39m Barcelona - Málaga                      Las Palmas de Gran Canaria - Valladolid 0.956    0.916 0.956 0.956    0.916 0.958
+[38;5;250m18[39m Barcelona - Málaga                      Las Palmas de Gran Canaria - Zaragoza   0.956    0.916 0.956 0.956    0.916 0.958
+[38;5;250m19[39m Barcelona - Murcia                      Alicante - Madrid                       0.978    0.958 0.979 0.978    0.958 0.978
+[38;5;250m20[39m Barcelona - Murcia                      Madrid - Valencia                       0.978    0.958 0.979 0.978    0.958 0.978
+[38;5;250m21[39m Bilbao - Málaga                         Gijón - Sevilla                         0.975    0.951 0.976 0.975    0.951 0.975
+[38;5;250m22[39m Bilbao - Valencia                       Sevilla - Valladolid                    0.983    0.967 0.983 0.983    0.967 0.984
+[38;5;250m23[39m Bilbao - Zaragoza                       Gijón - Madrid                          0.986    0.973 0.986 0.986    0.973 0.987
+[38;5;250m24[39m Córdoba - Palma                         Las Palmas de Gran Canaria - Vitoria    0.951    0.907 0.951 0.951    0.907 0.953
+[38;5;250m25[39m Elche - Gijón                           Madrid - Vigo                           0.966    0.935 0.967 0.966    0.935 0.966
+[38;5;250m26[39m Elche - Palma                           Alicante - Madrid                       0.978    0.958 0.979 0.978    0.958 0.978
+[38;5;250m27[39m Elche - Palma                           Madrid - Valencia                       0.978    0.958 0.979 0.978    0.958 0.978
+[38;5;250m28[39m Elche - Valladolid                      A Coruña - Málaga                       0.973    0.948 0.973 0.973    0.948 0.974
+[38;5;250m29[39m Elche - Valladolid                      Gijón - Málaga                          0.973    0.948 0.973 0.973    0.948 0.974
+[38;5;250m30[39m Elche - Vigo                            Barcelona - Gijón                       0.946    0.898 0.947 0.946    0.898 0.946
+[38;5;250m31[39m Gijón - Granada                         Alicante - Málaga                       0.974    0.949 0.975 0.974    0.949 0.974
+[38;5;250m32[39m Gijón - Granada                         Granada - Las Palmas de Gran Canaria    0.974    0.949 0.975 0.974    0.949 0.974
+[38;5;250m33[39m Gijón - Granada                         Málaga - Valencia                       0.974    0.949 0.975 0.974    0.949 0.974
+[38;5;250m34[39m Gijón - Las Palmas de Gran Canaria      A Coruña - Elche                        0.948    0.901 0.950 0.948    0.901 0.948
+[38;5;250m35[39m Gijón - Madrid                          Bilbao - Zaragoza                       0.986    0.973 0.987 0.986    0.973 0.986
+[38;5;250m36[39m Gijón - Madrid                          Valladolid - Vitoria                    0.986    0.973 0.987 0.986    0.973 0.986
+[38;5;250m37[39m Gijón - Málaga                          Elche - Valladolid                      0.973    0.948 0.974 0.973    0.948 0.973
+[38;5;250m38[39m Gijón - Sevilla                         Bilbao - Málaga                         0.975    0.951 0.975 0.975    0.951 0.976
+[38;5;250m39[39m Gijón - Vigo                            Gijón - Vitoria                         0.979    0.960 0.980 0.979    0.960 0.979
+[38;5;250m40[39m Gijón - Vigo                            Granada - Valencia                      0.979    0.960 0.980 0.979    0.960 0.979
+[38;5;250m41[39m Gijón - Vitoria                         Alicante - Granada                      0.979    0.960 0.979 0.979    0.960 0.980
+[38;5;250m42[39m Gijón - Vitoria                         Gijón - Vigo                            0.979    0.960 0.979 0.979    0.960 0.980
+[38;5;250m43[39m Granada - Las Palmas de Gran Canaria    Gijón - Granada                         0.974    0.949 0.974 0.974    0.949 0.975
+[38;5;250m44[39m Granada - Valencia                      Alicante - Granada                      0.979    0.960 0.979 0.979    0.960 0.980
+[38;5;250m45[39m Granada - Valencia                      Gijón - Vigo                            0.979    0.960 0.979 0.979    0.960 0.980
+[38;5;250m46[39m L'Hospitalet de Llobregat - Madrid      Las Palmas de Gran Canaria - Madrid     0.961    0.926 0.961 0.961    0.926 0.963
+[38;5;250m47[39m L'Hospitalet de Llobregat - Valencia    Sevilla - Valladolid                    0.983    0.967 0.983 0.983    0.967 0.984
+[38;5;250m48[39m Las Palmas de Gran Canaria - Madrid     L'Hospitalet de Llobregat - Madrid      0.961    0.926 0.963 0.961    0.926 0.961
+[38;5;250m49[39m Las Palmas de Gran Canaria - Palma      Alicante - Gijón                        0.965    0.932 0.966 0.965    0.932 0.965
+[38;5;250m50[39m Las Palmas de Gran Canaria - Palma      Palma - Vitoria                         0.965    0.932 0.966 0.965    0.932 0.965
+[38;5;250m51[39m Las Palmas de Gran Canaria - Sevilla    Alicante - Gijón                        0.965    0.932 0.966 0.965    0.932 0.965
+[38;5;250m52[39m Las Palmas de Gran Canaria - Sevilla    Palma - Vitoria                         0.965    0.932 0.966 0.965    0.932 0.965
+[38;5;250m53[39m Las Palmas de Gran Canaria - Valencia   Alicante - Gijón                        0.965    0.932 0.966 0.965    0.932 0.965
+[38;5;250m54[39m Las Palmas de Gran Canaria - Valencia   Palma - Vitoria                         0.965    0.932 0.966 0.965    0.932 0.965
+[38;5;250m55[39m Las Palmas de Gran Canaria - Valladolid Barcelona - Málaga                      0.956    0.916 0.958 0.956    0.916 0.956
+[38;5;250m56[39m Las Palmas de Gran Canaria - Vitoria    Córdoba - Palma                         0.951    0.907 0.953 0.951    0.907 0.951
+[38;5;250m57[39m Las Palmas de Gran Canaria - Vitoria    Palma - Valladolid                      0.951    0.907 0.953 0.951    0.907 0.951
+[38;5;250m58[39m Las Palmas de Gran Canaria - Zaragoza   Barcelona - Málaga                      0.956    0.916 0.958 0.956    0.916 0.956
+[38;5;250m59[39m Madrid - Valencia                       Barcelona - Murcia                      0.978    0.958 0.978 0.978    0.958 0.979
+[38;5;250m60[39m Madrid - Valencia                       Elche - Palma                           0.978    0.958 0.978 0.978    0.958 0.979
+[38;5;250m61[39m Madrid - Vigo                           Elche - Gijón                           0.966    0.935 0.966 0.966    0.935 0.967
+[38;5;250m62[39m Málaga - Murcia                         Sevilla - Vitoria                       0.978    0.957 0.978 0.978    0.957 0.979
+[38;5;250m63[39m Málaga - Valencia                       Gijón - Granada                         0.974    0.949 0.974 0.974    0.949 0.975
+[38;5;250m64[39m Palma - Valladolid                      Las Palmas de Gran Canaria - Vitoria    0.951    0.907 0.951 0.951    0.907 0.953
+[38;5;250m65[39m Palma - Vitoria                         Las Palmas de Gran Canaria - Palma      0.965    0.932 0.965 0.965    0.932 0.966
+[38;5;250m66[39m Palma - Vitoria                         Las Palmas de Gran Canaria - Sevilla    0.965    0.932 0.965 0.965    0.932 0.966
+[38;5;250m67[39m Palma - Vitoria                         Las Palmas de Gran Canaria - Valencia   0.965    0.932 0.965 0.965    0.932 0.966
+[38;5;250m68[39m Sevilla - Valladolid                    Alicante - L'Hospitalet de Llobregat    0.983    0.967 0.984 0.983    0.967 0.983
+[38;5;250m69[39m Sevilla - Valladolid                    Bilbao - Valencia                       0.983    0.967 0.984 0.983    0.967 0.983
+[38;5;250m70[39m Sevilla - Valladolid                    L'Hospitalet de Llobregat - Valencia    0.983    0.967 0.984 0.983    0.967 0.983
+[38;5;250m71[39m Sevilla - Vitoria                       Málaga - Murcia                         0.978    0.957 0.979 0.978    0.957 0.978
+[38;5;250m72[39m Valladolid - Vitoria                    Gijón - Madrid                          0.986    0.973 0.986 0.986    0.973 0.987
