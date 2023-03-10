@@ -2,7 +2,7 @@ library(jsonlite)
 library(tidyverse)
 library(lubridate)
 
-path <- "experiments/2022_InformationSciences/data"
+path <- "experiments/2_2022_InformationSciences/data"
 files <- list.files(path, full.names = T)
 files <- files[str_detect(files, "json")]
 # Give the input file name to the function.
@@ -38,8 +38,35 @@ meteo_is <- meteo_is %>%
 meteo_is
 
 glimpse(meteo_is)
+save(meteo_is, file = "datos_meteo2021_raw.RData")
 
-# Check, una estación por provincia:
+######## Get the names in the format required for the map
+
+library(mapSpain)
+
+country <- esp_get_country()
+provincias <- esp_get_prov() %>%
+  mutate(prov.shortname.en = ifelse(prov.shortname.en == "Balearic Islands", "Islas Baleares", prov.shortname.en),
+         prov.shortname.en = ifelse(prov.shortname.en == "A Coruña", "La Coruña", prov.shortname.en),
+         prov.shortname.en = ifelse(prov.shortname.en == "Gipuzkoa", "Guipuzcoa", prov.shortname.en),
+         prov.shortname.en = ifelse(prov.shortname.en == "Biscay", "Vizcaya", prov.shortname.en))
+can <- esp_get_can_box()
+lines <- esp_get_can_box()
+provincias <- provincias %>% arrange(prov.shortname.en) %>% mutate(id = 1:nrow(.))
+
+ids_names <- codigos <- print(provincias %>%
+                                as_tibble() %>%
+                                select(prov.shortname.es, id) %>%
+                                inner_join(
+                                  meteo_is %>%
+                                    mutate(provincia = as.character(provincia)) %>%
+                                    distinct(provincia) %>%
+                                    arrange(provincia) %>%
+                                    mutate(id = 1:nrow(.))), n = 52)
+
+######## Get the names in the format required for the map
+
+# Check, an examplo of station in a province
 # meteo_is %>% group_by(nombre, provincia) %>% distinct() %>% count()
 
 # Para la normalización luego
@@ -119,6 +146,11 @@ maxs <- meteo_is_intervals %>%
 meteo_is_intervals_dist <- inner_join(mins, maxs)
 meteo_is_intervals_dist <- meteo_is_intervals_dist[c(1, order(rep(1:12, 2)) + 1)]
 print(meteo_is_intervals_dist, n = 52)
+
+glimpse(meteo_is_intervals)
+save(meteo_is, file = "datos_meteo2021intervals.RData")
+glimpse(meteo_is_intervals_dist)
+save(meteo_is, file = "datos_meteo2021intervals_for_dist.RData")
 
 meteo_is_intervals_dist_variables <- meteo_is_intervals_dist[,-1]
 meteo_is_intervals_dist_provinces <- meteo_is_intervals_dist %>% pull(provincia)
