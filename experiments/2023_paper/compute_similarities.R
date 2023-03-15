@@ -7,7 +7,7 @@ compute_similarities <- function(a, b, ej) {
          aR = a[2],
          bL = b[1],
          bR = b[2],
-         alpha = alpha,
+         # alpha = alpha,
          sDice = similarity(a, b, "dice"),
          sJaccard = similarity(a, b, "jaccard"),
          sProd = similarity(a, b, "product"),
@@ -72,11 +72,11 @@ ej5 <- lapply(seq(0.1, 0.4, 0.1), function(alpha) {
 }) %>% bind_rows()
 
 # Ejemplo 6 --------------------------------------------------------------------
-# aumento del solapamiento, de la intersección
+# multiplicación de intervalo por escalar, la similitud aumneta igual (axioma 8)
 
 # con alpha = 1,2,3,4,5
 ej6 <- lapply(1:5, function(alpha) {
-  a <- c(0.125*alpha, 0.2*alpha)
+  a <- c(0.12*alpha, 0.2*alpha)
   b <- c(0.1*alpha, 0.15*alpha)
   compute_similarities(a, b, 6)
 }) %>% bind_rows()
