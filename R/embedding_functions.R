@@ -238,7 +238,7 @@ emb_rs <- function(a,b){
 #' @export
 similarity <- function(a, b, method){
   i <- intersection(a,b, interval = TRUE)
-  if(is.na(i)) {
+  if(all(is.na(i))) {
     return(0)
   }
   if(method == "dice") {
