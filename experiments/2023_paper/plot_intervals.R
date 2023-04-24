@@ -1,8 +1,4 @@
 ######################
-
-library(stringr)
-library(patchwork)
-
 #' this creates a dataframe with the data for each example with the colums
 #' ejemplo: el número del ejemplo
 #' aL: extremo inferior del intervalo a
