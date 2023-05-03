@@ -97,6 +97,14 @@ meteo_is_intervals <- meteo_is %>%
             max = max(tmax),
             .groups = "drop")
 
+meteo_is_intervals_sin_normalizar <- meteo_is %>%
+  select(provincia, month, tmax, tmin) %>%
+  group_by(provincia, month) %>%
+  mutate(month = factor(month)) %>%
+  summarise(min = min(tmin),
+            max = max(tmax),
+            .groups = "drop")
+
 ggplot(meteo_is_intervals %>%
          left_join(ids_names) %>%
          mutate(provincia = as.character(provincia),
