@@ -4,3 +4,5 @@ library(tidyverse)
 library(stringr)
 library(patchwork)
 
+library(extrafont)
+font_import()
