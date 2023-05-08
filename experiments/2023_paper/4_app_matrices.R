@@ -90,3 +90,25 @@ lapply(sim_por_par_de_meses[coincide_jaccard], function(x) {
     options = list(pageLength = 66),
     filter = list(position = 'top', clear = FALSE)
   )
+
+
+
+
+tienen_similitudes_repes_min <- lapply(1:length(sim_por_par_de_meses), function(i) {
+  una_provincia <- sim_por_par_de_meses[[i]]
+  valores_min <- una_provincia %>% count(sMin) %>% filter(n > 1)
+  if(nrow(valores_min)) return(valores_min)
+  else return(NULL)
+})
+nombres_provincias <- meteo_is_intervals$provincia %>% unique()
+names(tienen_similitudes_repes_min) <- nombres_provincias
+coincide_min <- lapply(tienen_similitudes_repes_min, function(x) !is.null(x)) %>% unlist() %>% which()
+sim_por_par_de_meses[coincide_min]
+valores_repes_min <- lapply(tienen_similitudes_repes_min, function(x) if(!is.null(x)) x %>% pull(sMin)) %>% compact() %>% unlist()
+
+sim_por_par_de_meses %>%
+  bind_rows() %>%
+  DT::datatable(
+    options = list(pageLength = 66),
+    filter = list(position = 'top', clear = FALSE)
+  )
