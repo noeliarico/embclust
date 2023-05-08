@@ -81,7 +81,16 @@ ej6 <- lapply(1:5, function(alpha) {
   compute_similarities(a, b, 6)
 }) %>% bind_rows()
 
+# Ejemplo 7 --------------------------------------------------------------------
+ej7 <- lapply(seq(0, 0.2, 0.1), function(alpha) {
+  a <- c(0.4+alpha, 0.8)
+  b <- c(0.2, 0.6+alpha)
+  compute_similarities(a, b, 7)
+}) %>% bind_rows()
+ej7
 
-ej <- bind_rows(ej1, ej2, ej3, ej4, ej5, ej6)
+# Juntar ejemplos --------------------------------------------------------------
+
+ej <- bind_rows(ej1, ej2, ej3, ej4, ej5, ej6, ej7)
 print(ej)
 
