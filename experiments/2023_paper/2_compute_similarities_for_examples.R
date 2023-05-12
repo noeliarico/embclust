@@ -82,6 +82,7 @@ ej6 <- lapply(1:5, function(alpha) {
 }) %>% bind_rows()
 
 # Ejemplo 7 --------------------------------------------------------------------
+# Nuevo para este artículo
 ej7 <- lapply(seq(0, 0.2, 0.1), function(alpha) {
   a <- c(0.4+alpha, 0.8)
   b <- c(0.2, 0.6+alpha)

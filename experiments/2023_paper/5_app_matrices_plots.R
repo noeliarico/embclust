@@ -49,29 +49,36 @@ un_plot_por_distancia <- lapply(distancias, function(var) {
 # EXPORTAR: 4x7 inches
 patchwork::wrap_plots(un_plot_por_distancia) + plot_layout(guides = "collect") &
   theme(legend.justification="right",
-        legend.margin = margin(0, 0, 0, 10)
+        legend.margin = margin(0, 0, 0, 10),
+        text = element_text(size = 10, family = "Times New Roman")
         )
+ggsave("fig_badajoz_matrices.pdf", width = 18, height = 11, units = "cm")
+
 
 badajoz %>%
   filter((m1 == 3 & m2 == 10) | m1 == 5 & m2 == 8)
 
 
 intervalos <- ggplot(meteo_is_intervals_sin_normalizar %>%
-         filter(provincia == "badajoz"), aes(y=month)) +
-  geom_segment(aes(y = month, yend = month, x = min, xend = max)) +
-  geom_point(aes(min, month)) +
-  geom_point(aes(max, month)) +
+         filter(provincia == "badajoz") %>%
+           mutate(color = month %in% c(3,6,10,11)), aes(y=month)) +
+  geom_segment(aes(y = month, yend = month, x = min, xend = max, color = color)) +
+  geom_point(aes(min, month, color = color)) +
+  geom_point(aes(max, month, color = color)) +
   geom_text(aes(x = max, label = max), nudge_y = 0.5, size = 2.5) +
   geom_text(aes(x = min, label = min), nudge_y = 0.5, size = 2.5) +
+  scale_color_manual(values = c("darkgrey", "black")) +
   ylab("Month") +
   xlab("Temperature range") +
   scale_y_discrete(limits = rev, expand = c(0, 1, 0.1, 0)) +
   theme_bw() +
-  theme(text = element_text(size = 9),
+  theme(text = element_text(size = 10, family = "Times New Roman"),
         # axis.text.x = element_text(angle = 90, size = 6),
         axis.title.x = element_text(margin = margin(t=10)),
-        axis.title.y = element_text(margin = margin(r=10)))
+        axis.title.y = element_text(margin = margin(r=10)),
+        legend.position = "none")
 intervalos
+ggsave("fig_intervalos_badajoz.pdf", width = 11, height = 9, units = "cm")
 
 ########### GRANADA
 
@@ -86,20 +93,21 @@ intervalos <- ggplot(meteo_is_intervals_sin_normalizar %>%
                        filter(provincia == "granada") %>%
                        mutate(color = month %in% c(1,8,12)), aes(y=month)) +
   geom_segment(aes(y = month, yend = month, x = min, xend = max, color = color)) +
-  geom_point(aes(min, month)) +
-  geom_point(aes(max, month)) +
+  geom_point(aes(min, month, color = color)) +
+  geom_point(aes(max, month, color = color)) +
   geom_text(aes(x = max, label = max), nudge_y = 0.5, size = 2.5) +
   geom_text(aes(x = min, label = min), nudge_y = 0.5, size = 2.5) +
-  scale_color_manual(values = c("black", "red")) +
+  scale_color_manual(values = c("darkgrey", "black")) +
   ylab("Month") +
   xlab("Temperature range") +
   scale_y_discrete(limits = rev, expand = c(0, 1, 0.1, 0)) +
   theme_bw() +
-  theme(text = element_text(size = 9),
+  theme(text = element_text(size = 9, family = "Times New Roman"),
         axis.title.x = element_text(margin = margin(t=10)),
         axis.title.y = element_text(margin = margin(r=10)),
         legend.position = "none")
 intervalos
+ggsave("fig_intervalos_granada.pdf", width = 11, height = 9, units = "cm")
 
 granada %>%
   select(m1, aL, aR) %>%
@@ -133,20 +141,21 @@ intervalos <- ggplot(meteo_is_intervals_sin_normalizar %>%
                        filter(provincia == "valencia") %>%
                        mutate(color = month %in% c(2,9,10,12)), aes(y=month)) +
   geom_segment(aes(y = month, yend = month, x = min, xend = max, color = color)) +
-  geom_point(aes(min, month)) +
-  geom_point(aes(max, month)) +
+  geom_point(aes(min, month, color = color)) +
+  geom_point(aes(max, month, color = color)) +
   geom_text(aes(x = max, label = max), nudge_y = 0.5, size = 2.5) +
   geom_text(aes(x = min, label = min), nudge_y = 0.5, size = 2.5) +
-  scale_color_manual(values = c("black", "red")) +
+  scale_color_manual(values = c("darkgrey", "black")) +
   ylab("Month") +
   xlab("Temperature range") +
   scale_y_discrete(limits = rev, expand = c(0, 1, 0.1, 0)) +
   theme_bw() +
-  theme(text = element_text(size = 9),
+  theme(text = element_text(size = 9, family = "Times New Roman"),
         axis.title.x = element_text(margin = margin(t=10)),
         axis.title.y = element_text(margin = margin(r=10)),
         legend.position = "none")
 intervalos
+ggsave("fig_intervalos_valencia.pdf", width = 11, height = 9, units = "cm")
 
 valencia %>%
   select(m2, aL, aR) %>%

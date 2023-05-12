@@ -191,7 +191,7 @@ ggsave("fig_axiom9.pdf", width = 9, height = 17, units = "cm")
 
 
 ################################################################################
-# FIGURA PROP3
+# FIGURA PROP2
 
 intervals5 <- plot_grande_intervals(5)
 sims5 <- plot_grande_sims(5)
@@ -201,13 +201,11 @@ intervals5 + sims5 + plot_layout(widths = c(1,1.5), guides = "collect") & theme(
                                                                                 legend.text = element_text(margin = margin(l = 3)))
 
 
-ggsave("fig_prop3.pdf", width = 9, height = 10, units = "cm")
-
-
+ggsave("fig_prop2.pdf", width = 9, height = 9, units = "cm")
 
 
 ################################################################################
-# FIGURA PROP3 lines
+# FIGURA PROP2 lines
 
 compute_similarities <- function(a, b) {
   tibble(aL = a[1],
@@ -280,6 +278,17 @@ individuales <- ggplot(ej_sim, aes(perc, value, color = sim, shape = sim)) +
 #                                                                              legend.margin = margin(l=-20),
 #                                                                              legend.text = element_text(margin = margin(l = 20)))
 individuales+todos+plot_layout(widths = c(2, 1)) & theme(legend.position = "none")
-ggsave("fig_prop3_lineas.pdf", width = 18, height = 9, units = "cm")
+ggsave("fig_prop2_lineas.pdf", width = 18, height = 9, units = "cm")
+
+################################################################################
+# FIGURA PROP3
+
+intervals <- plot_grande_intervals(7)
+sims <- plot_grande_sims(7)
+intervals + sims + plot_layout(widths = c(1,1.5), guides = "collect") & theme(legend.position = 'bottom',
+                                                                                legend.key.size = unit(0.7,"line"),
+                                                                                legend.margin = margin(l=-20),
+                                                                                legend.text = element_text(margin = margin(l = 3)))
 
 
+ggsave("fig_prop3.pdf", width = 9, height = 9, units = "cm")
